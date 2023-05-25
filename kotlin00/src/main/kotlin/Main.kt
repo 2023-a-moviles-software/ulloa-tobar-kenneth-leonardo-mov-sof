@@ -1,4 +1,5 @@
 import java.util.*
+import kotlin.collections.ArrayList
 
 fun main(args: Array<String>) {
     println("Hello world");
@@ -104,4 +105,20 @@ class Suma (
         if( uno == null) 0 else uno,
         if( dos == null) 0 else dos,
     )
+
+    public fun sumar(): Int {
+        val total = numeroUno + numeroDos;
+        agregarHistorial(total);
+        return total;
+    }
+    companion object { //Static
+        val pi = 3.14;
+        fun elevarAlCuadrado(num: Int): Int {
+            return num * num;
+        }
+    }
+    val historialSumas = ArrayList<Int>();
+    fun agregarHistorial(valorNuevaSuma: Int) {
+        historialSumas.add(valorNuevaSuma);
+    }
 }
