@@ -32,6 +32,17 @@ fun main(args: Array<String>) {
     calcularSueldo(10.00, 12.00, 20.00);
     calcularSueldo(10.00, bonoEspecial = 20.00);
     calcularSueldo(bonoEspecial = 20.00, sueldo = 10.0, tasa = 14.0);
+    val sumaUno = Suma(1,1);
+    val sumaDos = Suma(null, 1);
+    val sumaTres = Suma(1, null);
+    val sumaCuatro = Suma(null, null);
+    sumaUno.sumar();
+    sumaDos.sumar();
+    sumaTres.sumar();
+    sumaCuatro.sumar();
+    println(Suma.pi);
+    println(Suma.elevarAlCuadrado(2));
+    println(Suma.historialSumas);
 }
 fun imprimirNombre(nombre: String): Unit {
     println("Nombre: ${nombre}");
@@ -116,9 +127,10 @@ class Suma (
         fun elevarAlCuadrado(num: Int): Int {
             return num * num;
         }
+        val historialSumas = ArrayList<Int>();
+        fun agregarHistorial(valorNuevaSuma: Int) {
+            historialSumas.add(valorNuevaSuma);
+        }
     }
-    val historialSumas = ArrayList<Int>();
-    fun agregarHistorial(valorNuevaSuma: Int) {
-        historialSumas.add(valorNuevaSuma);
-    }
+
 }
