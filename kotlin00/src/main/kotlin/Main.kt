@@ -73,3 +73,35 @@ abstract class Numeros(
     }
 }
 
+class Suma (
+    unoParametro: Int,
+    dosParametro: Int
+) : Numeros(unoParametro, dosParametro) //Extendiendo y mandando parametros
+{
+    init {
+        this.numeroUno;
+        this.numeroDos;
+    }
+    constructor(
+        uno: Int?,
+        dos: Int
+    ): this(
+        if( uno == null) 0 else uno,
+        dos
+    )
+    constructor(
+        uno: Int,
+        dos: Int?
+    ): this(
+        uno,
+        if( dos == null) 0 else dos,
+    )
+
+    constructor(
+        uno: Int?,
+        dos: Int?
+    ): this(
+        if( uno == null) 0 else uno,
+        if( dos == null) 0 else dos,
+    )
+}
