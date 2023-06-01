@@ -34,5 +34,5 @@ fun main() {
     val respReduce: Int = arregloDinamico.reduce{ acumulado: Int, valor: Int ->
         return@reduce (acumulado + valor)
     }
-    
+
 }
