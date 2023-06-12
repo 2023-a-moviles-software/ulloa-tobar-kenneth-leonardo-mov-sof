@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<GridBag column-weights="1" columns="0">
+    <Label font-style="bold" padding="5" font-size="18">${name}</Label>
+    <Label padding="5">${headquarters}</Label>
+    <Label padding="5">${year}</Label>
+    <Label padding="5" font-style="italic">"${slogan}"</Label>
+    <Label padding="5">${url}</Label>
+</GridBag>

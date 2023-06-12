@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Frame
+        width="600"
+        height="500"
+        title="App"
+        onclose="exit"
+        icon="le_icon.png"
+>
+    <MenuBar>
+        <Menu title="Archivos">
+            <MenuItem keys="control N">Nuevo</MenuItem>
+        </Menu>
+    </MenuBar>
+
+    <TabPane is-content-pane="">
+        <GridBag  tabName="Desarrolladora" row-weights="0 1" rows="0 1" column-weights="1">
+            <Flow row="0" col="0" fill="both">
+                <Button id="nuevaDesarrolladora"  background="#3a6391" color="white" border="2 solid #4974ba"
+                        padding="5 15"
+                >Nuevo</Button>
+                <Button id="actualizarDesarrolladora"  background="#3d916b" color="white" border="2 solid #4cb586"
+                        padding="5 15"
+                >Actualizar</Button>
+                <Button id="eliminarDesarrolladora"  background="#99523a" color="white" border="2 solid #b56145"
+                        padding="5 15"
+                >Eliminar</Button>
+            </Flow>
+            <ScrollPane row="1" fill="both" insets="5">
+                <Table id="desarrolladorasTable">
+                </Table>
+            </ScrollPane>
+        </GridBag>
+        <GridBag  tabName="Videojuegos" row-weights="0 1" rows="0 1" column-weights="1">
+            <Flow row="0" col="0" fill="both" >
+                <Button id="nuevoVideojuego" background="#3a6391" color="white" border="2 solid #4974ba"
+                        padding="5 15"
+                >Nuevo</Button>
+                <Button id="actualizarVideojuego" background="#3d916b" color="white" border="2 solid #4cb586"
+                        padding="5 15"
+                >Actualizar</Button>
+                <Button id="eliminarVideojuego" background="#99523a" color="white" border="2 solid #b56145"
+                        padding="5 15"
+                >Eliminar</Button>
+            </Flow>
+            <ScrollPane row="1" fill="both" insets="5">
+                <Table id="videojuegosTable">
+                </Table>
+            </ScrollPane>
+        </GridBag>
+    </TabPane>
+
+</Frame>

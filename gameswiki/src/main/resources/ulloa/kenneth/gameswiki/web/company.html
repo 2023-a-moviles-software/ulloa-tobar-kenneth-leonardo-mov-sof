@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="colors.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="libs/fa/css/all.css">
+    <link rel="stylesheet" href="libs/ln/ln-lib.min.css">
+    <title>Game Wiki</title>
+    <script>
+        function main() {
+            document.querySelector("#content").innerHTML =
+                api.getAllCompanies()
+        }
+    </script>
+</head>
+<body>
+    <header class="ln-md-flex-column ln-flex-row ln-ai-center ln-gap-2 bg-color-2 ln-p-3">
+        <div class="ln-flex-row">
+            <a href="index.html" class="no-dec">
+                <h1 class="text-primary"><i class="fa-solid fa-book text-primary"></i> Game Wiki</h1>
+            </a>
+        </div>
+        <nav>
+            <ul class="ln-md-flex-column ln-flex-row no-list text-base">
+                <li class="ln-p-2">
+                    <a href="company.html" class="no-dec text-primary-h">
+                        <i class="fa-solid fa-building text-i"></i>
+                        Companies
+                    </a>
+                    
+                </li>
+                <li class="ln-p-2">
+                    <a href="videogames.html" class="no-dec text-primary-h">
+                        <i class="fa-solid fa-gamepad text-i"></i>
+                        Videogames
+                    </a>
+                    
+                </li>
+            </ul>
+        </nav>
+
+        <div class="input-group shadow ln-w-fit">
+            <input type="text" name="" id="searchBar" class="input bg-color-1" placeholder="Búsqueda...">
+            <button class="btn" onclick=""><i class="fa-solid fa-magnifying-glass"></i>Buscar</button>
+        </div>
+        
+    </header>
+    <div class="ln-p-3 ln-flex-row ln-jc-center">
+        <h1>Game Development Companies</h1>
+    </div>
+    <div class="ln-w-100">
+        <div class="ln-px-5 ln-grid ln-grid-col-1 ln-mdr-grid-col-2 ln-lgr-grid-col-4 ln-w-100" id="content">
+        </div>
+    </div>
+</body>
+</html>

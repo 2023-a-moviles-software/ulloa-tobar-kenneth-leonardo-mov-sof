@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Dialog
+    title="Videojuego"
+    width="550"
+    height="400"
+    modal=""
+>
+    <Panel  column-weights="0 1" columns="0 0" rows="0 0 0 0 0 0"
+              row-weights="0 0 0 0 0 0"
+              is-content-pane=""
+            layout="gridbag"
+    >
+        <Label row="0" col="0" font-style="bold" h-align="right" fill="horizontal">Desarrolladora</Label>
+        <ComboBox row="0" col="1" form="form" name="desarrolladora" fill="horizontal" insets="5" id="desarrolladora"
+            required="">
+        </ComboBox>
+        <Label row="1" col="0" font-style="bold" h-align="right" fill="horizontal">Nombre</Label>
+        <TextField row="1" col="1" form="form" id="nombre" name="nombre" insets="5" fill="horizontal" required=""/>
+        <Label row="2" col="0" font-style="bold" fill="horizontal" h-align="right">Fecha de lanzamiento(aaaa-mm-dd)</Label>
+        <FormatField row="2" column="1" fill="horizontal" form="form" name="fecha"
+            type="date" format="yyyy-mm-dd" required="" insets="5" id="fecha"/>
+        <Label row="3" col="0" font-style="bold" h-align="right" fill="horizontal">Calificación(0,0)</Label>
+        <FormatField row="3" col="1" fill="horizontal" id="calificacion" form="form"
+                   required="" insets="5"
+                   type="number"
+                   name="calificacion"
+                   format="###.###"/>
+        <Label row="4" column="0" font-style="bold" h-align="right" fill="horizontal">Género(s)</Label>
+        <MultipleGroup row="4" column="1" fill="both" form="form" name="generos" id="generos" layout="grid"
+                       columns="5" rows="0"/>
+        <Label row="5" col="0" font-style="bold" h-align="right" fill="horizontal">Plataforma(s)</Label>
+        <MultipleGroup row="5" column="1" fill="both" form="form" name="plataformas" id="plataformas" layout="grid"
+                       columns="5" rows="0"/>
+        <Flow row="6" col="1" fill="horizontal" layout="right">
+            <Button id="guardar" background="#3d916b" color="white" border="2 solid #4cb586" padding="5 15">Guardar</Button>
+            <Button id="cancelar" background="#99523a" color="white" border="2 solid #b56145" padding="5 15">Cancelar</Button>
+        </Flow>
+    </Panel>
+</Dialog>

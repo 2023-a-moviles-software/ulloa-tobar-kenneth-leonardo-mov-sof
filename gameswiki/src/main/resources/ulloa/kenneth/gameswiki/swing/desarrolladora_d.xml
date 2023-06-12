@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Dialog
+    title="Desarrolladora"
+    width="500"
+    height="250"
+    modal=""
+>
+    <Panel column-weights="0 1" columns="0 1" padding="15" rows="0 0 0 0 0 0 0"
+           row-weights="0 0 0 0 0 0 1"
+           is-content-pane=""
+           layout="gridbag"
+    >
+        <Label row="0" col="0" font-style="bold" h-align="right" fill="horizontal" insets="5">Nombre</Label>
+        <TextField row="0" col="1" id="nombre" form="form" fill="horizontal" name="nombre" required=""/>
+        <Label row="1" col="0" font-style="bold" h-align="right" fill="horizontal" insets="5">Año de creación</Label>
+        <FormatField row="1" col="1"  fill="horizontal" id="anio" form="form" type="number" format="###" required=""/>
+        <Label row="2" col="0"  font-style="bold" fill="horizontal" h-align="right" insets="5">Ubicación</Label>
+        <TextField row="2" col="1" fill="horizontal" id="ubicacion" name="ubicacion" form="form" required=""/>
+        <Label row="3" col="0" font-style="bold" fill="horizontal" h-align="right" insets="5"
+        >Página web</Label>
+        <TextField row="3" col="1" fill="horizontal" form="form" id="url" name="url" required=""/>
+        <Label row="4" col="0" fill="horizontal" font-style="bold" h-align="right" insets="5">Es independiente</Label>
+        <SingleGroup row="4" col="1" fill="both" layout="grid" cols="1" rows="0" form="form" name="indep" required=""
+        >
+            <RadioButton selected="" id="si">Si</RadioButton>
+            <RadioButton id="no">No</RadioButton>
+        </SingleGroup>
+        <Flow row="5" col="1" fill="both">
+            <Button id="guardar" background="#3d916b" color="white" border="2 solid #4cb586" padding="5 15">Guardar</Button>
+            <Button id="cancelar" background="#99523a" color="white" border="2 solid #b56145" padding="5 15">Cancelar</Button>
+        </Flow>
+    </Panel>
+</Dialog>

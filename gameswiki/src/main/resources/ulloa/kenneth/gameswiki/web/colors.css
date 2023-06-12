@@ -1,0 +1,31 @@
+:root {
+    --primary-color: #55B5FB;
+    --bg-color-1: #e7e7e7;
+    --bg-color-2: white;
+    --text-color: black;
+    --contrast-text-color: white;
+}
+
+[data-theme="dark"] {
+    --primary-color: #55B5FB;
+    --bg-color-1: #2e2e2e;
+    --bg-color-2: rgb(61, 61, 61);  
+    --text-color: white;
+    --contrast-text-color: black;
+}
+
+.text-primary, .text-primary-h:hover 
+{color: var(--primary-color);}
+.text-base, .text-base-h:hover 
+{color: var(--text-color)}
+.text-contrast, .text-contrast-h:hover 
+{color: var(--contrast-text-color)}
+.text-color-1, .text-color-1-h:hover 
+{color: var(--bg-color-1)}
+.text-color-2, .text-color-2-h:hover 
+{color: var(--bg-color-2)}
+.text-i {color: inherit}
+
+.bg-primary {background: var(--primary-color);}
+.bg-color-1 {background: var(--bg-color-1)}
+.bg-color-2 {background: var(--bg-color-2)}
