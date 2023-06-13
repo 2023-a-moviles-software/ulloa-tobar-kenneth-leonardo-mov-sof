@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MovilesSoftware2023A</string>
     <string name="bienvenida">Bienvenida</string>
+    <string name="contenido">Contenido</string>
 </resources>
