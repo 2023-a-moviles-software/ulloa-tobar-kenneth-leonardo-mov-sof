@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ExamenIB</string>
+    <string name="nombre">Nombre</string>
+    <string name="ubicacion">Ubicación</string>
+    <string name="anio">Año de creación</string>
+    <string name="independiente">Es independiente</string>
+    <string name="url">Página web</string>
+    <string name="crear">Crear</string>
+    <string name="guardar">Guardar</string>
+</resources>
