@@ -1,8 +1,8 @@
 package ec.edu.epn.swr.emp.examenib
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
@@ -10,16 +10,27 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
+import androidx.appcompat.app.AlertDialog
+import com.google.android.material.snackbar.Snackbar
 import ec.edu.epn.swr.emp.examenib.bussiness.BaseDatos
 import ec.edu.epn.swr.emp.examenib.bussiness.Desarrolladora
+import ec.edu.epn.swr.emp.examenib.utils.CambiadorActividad
 
 class VistaDesarrolladora : AppCompatActivity() {
     lateinit var adaptador: ArrayAdapter<Desarrolladora>
     var idSeleccionado = 0
     var modo = Modo.CREACION
+    val activityChange = CambiadorActividad(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        activityChange.callback = {
+            intent ->
+            intent.putExtra("id_desarrolladora",idSeleccionado)
+            intent.putExtra("modo", modo)
+        }
 
         val listView = findViewById<ListView>(R.id.lv_desarrolladoras)
         adaptador = ArrayAdapter(
@@ -32,12 +43,13 @@ class VistaDesarrolladora : AppCompatActivity() {
 
         val botonCrear = findViewById<Button>(R.id.btn_crear_desarrolladora)
         botonCrear.setOnClickListener {
-            cambiarActividad(EdicionDesarrolladora::class.java)
+            activityChange.cambiarActividad(EdicionDesarrolladora::class.java)
         }
 
         listView.setOnItemClickListener { adapterView, view, i, l ->
-            idSeleccionado = i
-            cambiarActividad(VistaVideojuego::class.java)
+            idSeleccionado = adaptador.getItem(i)?.id!!
+            Log.i("Desarrollo", "${adaptador.getItem(i)}")
+            activityChange.cambiarActividad(VistaVideojuego::class.java)
         }
         registerForContextMenu(listView)
     }
@@ -52,22 +64,35 @@ class VistaDesarrolladora : AppCompatActivity() {
         inflater.inflate(R.menu.menu_items, menu)
         val info = menuInfo as AdapterView.AdapterContextMenuInfo
         val id = info.position
-        idSeleccionado = id
-
+        idSeleccionado = adaptador.getItem(id)?.id!!
     }
 
+    fun abrirDialogoEliminar() {
+        var builder = AlertDialog.Builder(this)
+        builder.setTitle("¿Desea eliminar?")
+        builder.setPositiveButton("Si") { dialog, which ->
+            if(BaseDatos.eliminar(idSeleccionado)){
+                mostrarSnackbar("Elemento eliminado con éxito")
+                adaptador.notifyDataSetChanged()
+            }
+
+        }
+        builder.setNegativeButton("No", null)
+
+        val dialog = builder.create()
+        dialog.show()
+    }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             R.id.menu_item_editar -> {
                 modo = Modo.ACTUALIZACION
-                cambiarActividad(EdicionDesarrolladora::class.java)
+                activityChange.cambiarActividad(EdicionDesarrolladora::class.java)
                 true
             }
 
             R.id.menu_item_eliminar -> {
-                BaseDatos.eliminar(idSeleccionado + 1)
-                adaptador.notifyDataSetChanged()
+                abrirDialogoEliminar()
                 true
             }
 
@@ -78,16 +103,17 @@ class VistaDesarrolladora : AppCompatActivity() {
 
     }
 
-    fun cambiarActividad(clase: Class<*>) {
-        val intent = Intent(this, clase)
-        intent.putExtra("id_desarrolladora",idSeleccionado + 1)
-        intent.putExtra("modo", modo)
-        startActivity(intent)
-    }
-
     override fun onRestart() {
         super.onRestart()
         adaptador.notifyDataSetChanged()
+    }
+
+    fun mostrarSnackbar(texto: String){
+        Snackbar.make(
+            findViewById(R.id.lv_desarrolladoras),
+            texto,
+            Snackbar.LENGTH_LONG
+        ).setAction("Action", null).show()
     }
 }
 

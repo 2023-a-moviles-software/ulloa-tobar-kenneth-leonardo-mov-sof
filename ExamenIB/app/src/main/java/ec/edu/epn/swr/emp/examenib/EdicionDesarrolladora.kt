@@ -11,10 +11,12 @@ import android.widget.Switch
 import android.widget.TextView
 import ec.edu.epn.swr.emp.examenib.bussiness.BaseDatos
 import ec.edu.epn.swr.emp.examenib.bussiness.Desarrolladora
+import ec.edu.epn.swr.emp.examenib.utils.CambiadorActividad
 
 class EdicionDesarrolladora : AppCompatActivity() {
     var modo: Modo = Modo.CREACION
     var desarrolladora: Desarrolladora? = null
+    val cambiadorActividad = CambiadorActividad(this)
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,13 +40,8 @@ class EdicionDesarrolladora : AppCompatActivity() {
 
         botonGuardar.setOnClickListener {
             realizarAccionDesarrolladora()
-            cambiarActividad(VistaDesarrolladora::class.java)
+            cambiadorActividad.cambiarActividad(VistaDesarrolladora::class.java)
         }
-    }
-
-    fun cambiarActividad(clase: Class<*>) {
-        val intent = Intent(this, clase)
-        startActivity(intent)
     }
 
     fun realizarAccionDesarrolladora() {
