@@ -26,7 +26,6 @@ class Desarrolladora {
         this.videojuegos = videojuegos
     }
 
-
     override fun toString(): String {
         return "${this.nombre} (${this.anioCreacion})"
     }

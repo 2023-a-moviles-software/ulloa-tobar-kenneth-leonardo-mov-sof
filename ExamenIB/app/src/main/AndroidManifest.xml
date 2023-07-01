@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ExamenIB"
         tools:targetApi="31">
         <activity
+            android:name=".EdicionVideojuego"
+            android:exported="false" />
+        <activity
             android:name=".EdicionDesarrolladora"
             android:exported="false" />
         <activity

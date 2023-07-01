@@ -10,7 +10,6 @@ class BaseDatos {
     @SuppressLint("NewApi")
     companion object {
         val desarrolladoras = ArrayList<Desarrolladora>()
-        val videojuegos = ArrayList<Videojuego>()
 
         init {
             desarrolladoras.add(
@@ -47,8 +46,7 @@ class BaseDatos {
                 )
             )
 
-            videojuegos.add(
-                Videojuego(
+            Videojuego(
                     id = 1,
                     nombre = "Mario Bros",
                     fechaLanzamiento = LocalDate.of(1985,9,13),
@@ -61,10 +59,8 @@ class BaseDatos {
                     calificacion = 0.9,
                     desarrolladora = desarrolladoras[0]
                 )
-            )
 
-            videojuegos.add(
-                Videojuego(
+            Videojuego(
                     id = 2,
                     nombre = "Mario Party",
                     fechaLanzamiento = LocalDate.of(1998,1,18),
@@ -76,11 +72,9 @@ class BaseDatos {
                     ),
                     calificacion = 0.7,
                     desarrolladora = desarrolladoras[0]
-                )
             )
 
-            videojuegos.add(
-                Videojuego(
+            Videojuego(
                     id = 3,
                     nombre = "GTA San Andreas",
                     fechaLanzamiento = LocalDate.of(2004,1,24),
@@ -97,10 +91,8 @@ class BaseDatos {
                     calificacion = 0.8,
                     desarrolladora = desarrolladoras[2]
                 )
-            )
 
-            videojuegos.add(
-                Videojuego(
+            Videojuego(
                     id = 4,
                     nombre = "Call of Duty",
                     fechaLanzamiento = LocalDate.of(2006,9,22),
@@ -117,9 +109,19 @@ class BaseDatos {
                     calificacion = 0.78,
                     desarrolladora = desarrolladoras[1]
                 )
-            )
 
         }
 
+        fun buscarDesarrolladora(id: Int): Desarrolladora? {
+            return desarrolladoras.find { it.id == id }
+        }
+
+        fun eliminar(id: Int): Boolean {
+            val desarrolladora = buscarDesarrolladora(id) ?: return false
+            return desarrolladoras.remove(desarrolladora)
+        }
+
     }
+
+
 }
