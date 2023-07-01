@@ -15,16 +15,19 @@ import com.google.android.material.snackbar.Snackbar
 import ec.edu.epn.swr.emp.examenib.bussiness.BaseDatos
 import ec.edu.epn.swr.emp.examenib.bussiness.Desarrolladora
 import ec.edu.epn.swr.emp.examenib.utils.CambiadorActividad
+import ec.edu.epn.swr.emp.examenib.utils.GeneradorSnackbar
 
 class VistaDesarrolladora : AppCompatActivity() {
     lateinit var adaptador: ArrayAdapter<Desarrolladora>
     var idSeleccionado = 0
     var modo = Modo.CREACION
     val activityChange = CambiadorActividad(this)
+    lateinit var generadorSnackbar: GeneradorSnackbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        generadorSnackbar = GeneradorSnackbar(findViewById(R.id.lv_desarrolladoras))
 
         activityChange.callback = {
             intent ->
@@ -72,7 +75,7 @@ class VistaDesarrolladora : AppCompatActivity() {
         builder.setTitle("¿Desea eliminar?")
         builder.setPositiveButton("Si") { dialog, which ->
             if(BaseDatos.eliminar(idSeleccionado)){
-                mostrarSnackbar("Elemento eliminado con éxito")
+                generadorSnackbar.mostrar("Elemento eliminado con éxito")
                 adaptador.notifyDataSetChanged()
             }
 
@@ -106,14 +109,6 @@ class VistaDesarrolladora : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
         adaptador.notifyDataSetChanged()
-    }
-
-    fun mostrarSnackbar(texto: String){
-        Snackbar.make(
-            findViewById(R.id.lv_desarrolladoras),
-            texto,
-            Snackbar.LENGTH_LONG
-        ).setAction("Action", null).show()
     }
 }
 
