@@ -7,8 +7,8 @@ class Videojuego {
     var fechaLanzamiento: LocalDate
     var desarrolladora: Desarrolladora?
     var calificacion: Double
-    val plataformas: MutableList<Plataforma>
-    val generos: MutableList<Genero>
+    val plataformas: ArrayList<Plataforma>
+    val generos: ArrayList<Genero>
     val id: Int?
 
     constructor(
@@ -16,8 +16,8 @@ class Videojuego {
         fechaLanzamiento: LocalDate,
         desarrolladora: Desarrolladora?,
         calificacion: Double,
-        generos: MutableList<Genero> = ArrayList(),
-        plataformas: MutableList<Plataforma> = ArrayList(),
+        generos: ArrayList<Genero> = ArrayList(),
+        plataformas: ArrayList<Plataforma> = ArrayList(),
         id: Int? = null
     ) {
         this.nombre = nombre

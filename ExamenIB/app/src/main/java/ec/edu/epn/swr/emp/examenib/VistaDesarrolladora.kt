@@ -16,6 +16,7 @@ import ec.edu.epn.swr.emp.examenib.bussiness.BaseDatos
 import ec.edu.epn.swr.emp.examenib.bussiness.Desarrolladora
 import ec.edu.epn.swr.emp.examenib.utils.CambiadorActividad
 import ec.edu.epn.swr.emp.examenib.utils.GeneradorSnackbar
+import ec.edu.epn.swr.emp.examenib.utils.Modo
 
 class VistaDesarrolladora : AppCompatActivity() {
     lateinit var adaptador: ArrayAdapter<Desarrolladora>
@@ -31,7 +32,7 @@ class VistaDesarrolladora : AppCompatActivity() {
 
         activityChange.callback = {
             intent ->
-            intent.putExtra("id_desarrolladora",idSeleccionado)
+            intent.putExtra("idDesarrolladora",idSeleccionado)
             intent.putExtra("modo", modo)
         }
 
@@ -110,8 +111,4 @@ class VistaDesarrolladora : AppCompatActivity() {
         super.onRestart()
         adaptador.notifyDataSetChanged()
     }
-}
-
-enum class Modo(val nombre: String) {
-    CREACION("Creación"), ACTUALIZACION("Actualización")
 }

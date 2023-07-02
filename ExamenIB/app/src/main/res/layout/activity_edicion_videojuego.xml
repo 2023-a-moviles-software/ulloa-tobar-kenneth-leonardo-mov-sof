@@ -4,6 +4,162 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EdicionVideojuego">
+    tools:context=".EdicionVideojuego"
+
+    >
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Videojuego"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/te_modo_videojuego"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Modo"
+        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/tv_desarrolladora_videojuego"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Desarrolladora"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/te_modo_videojuego"
+        app:layout_constraintStart_toStartOf="@+id/te_modo_videojuego"
+        app:layout_constraintTop_toBottomOf="@+id/te_modo_videojuego" />
+
+    <TableLayout
+        android:id="@+id/tableLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:padding="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_desarrolladora_videojuego">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            tools:layout_editor_absoluteX="72dp"
+            tools:layout_editor_absoluteY="165dp" />
+
+        <EditText
+            android:id="@+id/tv_nombre_videojuego"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Nombre"
+            android:inputType="text"
+            tools:layout_editor_absoluteX="74dp"
+            tools:layout_editor_absoluteY="192dp" />
+
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calificación"
+            tools:layout_editor_absoluteX="68dp"
+            tools:layout_editor_absoluteY="260dp" />
+
+        <EditText
+            android:id="@+id/tv_calificacion_videojuego"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Calficicación"
+            android:inputType="numberDecimal"
+            tools:layout_editor_absoluteX="68dp"
+            tools:layout_editor_absoluteY="398dp" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha de lanzamiento"
+            tools:layout_editor_absoluteX="69dp"
+            tools:layout_editor_absoluteY="362dp" />
+
+        <EditText
+            android:id="@+id/tv_fecha_videojuego"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Fecha de lanzamiento"
+            android:inputType="date"
+            tools:layout_editor_absoluteX="68dp"
+            tools:layout_editor_absoluteY="297dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plataformas"
+            tools:layout_editor_absoluteX="72dp"
+            tools:layout_editor_absoluteY="165dp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="517dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/panel_plataformas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="517dp" />
+
+        </ScrollView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Géneros"
+            tools:layout_editor_absoluteX="72dp"
+            tools:layout_editor_absoluteY="165dp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="517dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/panel_generos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="517dp" />
+
+
+        </ScrollView>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btn_guardar_videojuego"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guardar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout2" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
