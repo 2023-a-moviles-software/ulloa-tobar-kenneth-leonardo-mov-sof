@@ -41,7 +41,7 @@ class EdicionDesarrolladora : AppCompatActivity() {
 
         botonGuardar.setOnClickListener {
             realizarAccionDesarrolladora()
-            cambiadorActividad.cambiarActividad(VistaDesarrolladora::class.java)
+            //cambiadorActividad.cambiarActividad(VistaDesarrolladora::class.java)
         }
     }
 

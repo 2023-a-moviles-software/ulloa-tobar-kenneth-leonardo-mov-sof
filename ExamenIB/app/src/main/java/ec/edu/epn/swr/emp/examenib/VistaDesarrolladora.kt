@@ -78,7 +78,6 @@ class VistaDesarrolladora : AppCompatActivity() {
                 generadorSnackbar.mostrar("Elemento eliminado con éxito")
                 adaptador.notifyDataSetChanged()
             }
-
         }
         builder.setNegativeButton("No", null)
 

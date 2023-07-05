@@ -10,7 +10,9 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import ec.edu.epn.swr.emp.examenib.bussiness.BaseDatos
+import ec.edu.epn.swr.emp.examenib.bussiness.Desarrolladora
 import ec.edu.epn.swr.emp.examenib.bussiness.Videojuego
 import ec.edu.epn.swr.emp.examenib.utils.CambiadorActividad
 import ec.edu.epn.swr.emp.examenib.utils.Modo
@@ -19,7 +21,9 @@ class VistaVideojuego : AppCompatActivity() {
     val cambiadorActividad: CambiadorActividad = CambiadorActividad(this)
     var modo: Modo = Modo.CREACION
     private var idVideojuego = -1
+    private var idDesarrolladora = -1
     lateinit var adaptador: ArrayAdapter<Videojuego>
+    lateinit var desarrolladora: Desarrolladora
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vista_videojuego)
@@ -27,7 +31,7 @@ class VistaVideojuego : AppCompatActivity() {
 
         val desarrolladoraTextView = findViewById<TextView>(R.id.textView_desarrolladora)
 
-        val idDesarrolladora = intent.getIntExtra("idDesarrolladora", -1)
+        idDesarrolladora = intent.getIntExtra("idDesarrolladora", -1)
 
         cambiadorActividad.callback = {
                 intent ->
@@ -40,7 +44,8 @@ class VistaVideojuego : AppCompatActivity() {
         if(idDesarrolladora != -1) {
             val desarrolladora = BaseDatos.buscarDesarrolladora(idDesarrolladora)
             if (desarrolladora != null) {
-                videojuegos.addAll(desarrolladora.videojuegos)
+                this.desarrolladora = desarrolladora
+                //videojuegos.addAll(desarrolladora.videojuegos)
                 desarrolladoraTextView.text = desarrolladora.nombre
             }
         }
@@ -49,7 +54,7 @@ class VistaVideojuego : AppCompatActivity() {
         adaptador = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
-            videojuegos
+            desarrolladora.videojuegos
         )
 
         listView.adapter = adaptador
@@ -61,7 +66,7 @@ class VistaVideojuego : AppCompatActivity() {
 
         botonCrear.setOnClickListener {
             modo = Modo.CREACION
-            cambiadorActividad.cambiarActividad(EdicionVideojuego::class.java)
+            //cambiadorActividad.cambiarActividad(EdicionVideojuego::class.java)
         }
     }
 
@@ -87,6 +92,7 @@ class VistaVideojuego : AppCompatActivity() {
             }
 
             R.id.menu_item_eliminar -> {
+                abrirDialogoEliminar()
                 true
             }
 
@@ -95,6 +101,24 @@ class VistaVideojuego : AppCompatActivity() {
             }
         }
     }
+
+    fun abrirDialogoEliminar() {
+        var builder = AlertDialog.Builder(this)
+        builder.setTitle("¿Desea eliminar?")
+        builder.setPositiveButton("Si") { dialog, which ->
+            val desarrolladora = BaseDatos.buscarDesarrolladora(idDesarrolladora)
+            if(desarrolladora != null){
+                //generadorSnackbar.mostrar("Elemento eliminado con éxito")
+                desarrolladora.videojuegos.removeIf { it.id == idVideojuego }
+                adaptador.notifyDataSetChanged()
+            }
+        }
+        builder.setNegativeButton("No", null)
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
     override fun onResume() {
         super.onResume()
         adaptador.notifyDataSetChanged()
