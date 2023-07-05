@@ -9,20 +9,23 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
 import android.widget.TextView
+import com.google.android.material.snackbar.Snackbar
 import ec.edu.epn.swr.emp.examenib.bussiness.BaseDatos
 import ec.edu.epn.swr.emp.examenib.bussiness.Desarrolladora
 import ec.edu.epn.swr.emp.examenib.utils.CambiadorActividad
+import ec.edu.epn.swr.emp.examenib.utils.GeneradorSnackbar
 import ec.edu.epn.swr.emp.examenib.utils.Modo
 
 class EdicionDesarrolladora : AppCompatActivity() {
     var modo: Modo = Modo.CREACION
     var desarrolladora: Desarrolladora? = null
     val cambiadorActividad = CambiadorActividad(this)
+    lateinit var generadorSnackbar: GeneradorSnackbar
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edicion_desarrolladora)
-
+        generadorSnackbar = GeneradorSnackbar(findViewById(R.id.te_modo_desarrolladora))
         val botonGuardar = findViewById<Button>(R.id.btn_guardar_desarrolladora)
         val textViewModo = findViewById<TextView>(R.id.te_modo_desarrolladora)
 
@@ -66,6 +69,9 @@ class EdicionDesarrolladora : AppCompatActivity() {
                     anio = anio.text.toString().toInt(),
                     esIndependiente = independiente.isChecked
                 )
+
+                generadorSnackbar.mostrar("Desarrolladora creada exitosamente")
+
             }else if (modo == Modo.ACTUALIZACION) {
                 var id: Int = if (desarrolladora?.id != null) desarrolladora?.id!! else -1
 
@@ -77,8 +83,11 @@ class EdicionDesarrolladora : AppCompatActivity() {
                     esIndependiente = independiente.isChecked,
                     id = id
                 )
-
+                generadorSnackbar.mostrar("Desarrolladora actualizada exitosamente")
             }
+
+        } else {
+            generadorSnackbar.mostrar("No pueden existir campos vacíos")
         }
     }
 

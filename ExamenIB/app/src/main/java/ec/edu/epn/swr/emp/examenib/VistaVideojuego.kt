@@ -66,7 +66,8 @@ class VistaVideojuego : AppCompatActivity() {
 
         botonCrear.setOnClickListener {
             modo = Modo.CREACION
-            //cambiadorActividad.cambiarActividad(EdicionVideojuego::class.java)
+            cambiadorActividad.cambiarActividad(EdicionVideojuego::class.java)
+
         }
     }
 

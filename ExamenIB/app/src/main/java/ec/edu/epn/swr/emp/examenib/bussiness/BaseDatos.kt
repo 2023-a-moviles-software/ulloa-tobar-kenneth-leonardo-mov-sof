@@ -143,7 +143,7 @@ class BaseDatos {
                     anioCreacion = anio,
                     paginaWeb = paginaWeb,
                     esIndependiente = esIndependiente,
-                    id = ultimoId
+                    id = ultimoId + 1
                 )
             )
             ultimoId += 1

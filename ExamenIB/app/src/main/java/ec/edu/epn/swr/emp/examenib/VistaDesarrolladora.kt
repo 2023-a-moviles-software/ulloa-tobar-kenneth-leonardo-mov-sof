@@ -46,6 +46,7 @@ class VistaDesarrolladora : AppCompatActivity() {
 
         val botonCrear = findViewById<Button>(R.id.btn_crear_desarrolladora)
         botonCrear.setOnClickListener {
+            modo = Modo.CREACION
             activityChange.cambiarActividad(EdicionDesarrolladora::class.java)
         }
 
@@ -68,6 +69,7 @@ class VistaDesarrolladora : AppCompatActivity() {
         val info = menuInfo as AdapterView.AdapterContextMenuInfo
         val id = info.position
         idSeleccionado = adaptador.getItem(id)?.id!!
+        Log.i("Elemento", idSeleccionado.toString())
     }
 
     fun abrirDialogoEliminar() {
@@ -112,6 +114,11 @@ class VistaDesarrolladora : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
+        adaptador.notifyDataSetChanged()
+    }
+
+    override fun onResume() {
+        super.onResume()
         adaptador.notifyDataSetChanged()
     }
 }

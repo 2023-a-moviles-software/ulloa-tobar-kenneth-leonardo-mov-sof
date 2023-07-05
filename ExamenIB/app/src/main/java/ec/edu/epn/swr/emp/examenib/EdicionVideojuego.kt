@@ -17,6 +17,7 @@ import ec.edu.epn.swr.emp.examenib.bussiness.Genero
 import ec.edu.epn.swr.emp.examenib.bussiness.Videojuego
 import ec.edu.epn.swr.emp.examenib.utils.CambiadorActividad
 import ec.edu.epn.swr.emp.examenib.utils.ContenedorPlataforma
+import ec.edu.epn.swr.emp.examenib.utils.GeneradorSnackbar
 import ec.edu.epn.swr.emp.examenib.utils.GeneroAdapter
 import ec.edu.epn.swr.emp.examenib.utils.GeneroContenedor
 import ec.edu.epn.swr.emp.examenib.utils.Modo
@@ -29,6 +30,7 @@ class EdicionVideojuego : AppCompatActivity() {
     lateinit var videojuego: Videojuego
     lateinit var adaptadorGenero: GeneroAdapter
     val cambiadorActividad = CambiadorActividad(this)
+    lateinit var generadorSnackbar: GeneradorSnackbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,8 @@ class EdicionVideojuego : AppCompatActivity() {
             intent ->
             intent.putExtra("idDesarrolladora", this.intent.getIntExtra("idDesarrolladora", -1))
         }
+
+        generadorSnackbar = GeneradorSnackbar(findViewById(R.id.te_modo_videojuego))
 
         modo = intent.getSerializableExtra("modo", Modo::class.java) as Modo
         val modoText = findViewById<TextView>(R.id.te_modo_videojuego)
@@ -74,7 +78,7 @@ class EdicionVideojuego : AppCompatActivity() {
         val botonGuardar = findViewById<Button>(R.id.btn_guardar_videojuego)
         botonGuardar.setOnClickListener {
             accionGuardar()
-            cambiadorActividad.cambiarActividad(VistaVideojuego::class.java)
+            //cambiadorActividad.cambiarActividad(VistaVideojuego::class.java)
         }
 
 
@@ -121,6 +125,7 @@ class EdicionVideojuego : AppCompatActivity() {
                     generos = (panelGenero.adapter as GeneroAdapter).getSelected(),
                     id = it.videojuegos.size + 1
                 )
+                generadorSnackbar.mostrar("¡Videojuego creado exitosamente!")
             }
         }else if (modo == Modo.ACTUALIZACION) {
             videojuego.nombre = nombre.text.toString()
@@ -130,6 +135,7 @@ class EdicionVideojuego : AppCompatActivity() {
             videojuego.plataformas.addAll((panelPlataforma.adapter as PlataformaAdapter).getSelected())
             videojuego.generos.clear()
             videojuego.generos.addAll((panelGenero.adapter as GeneroAdapter).getSelected())
+            generadorSnackbar.mostrar("¡Videojuego actualizado exitosamente!")
         }
 
 
