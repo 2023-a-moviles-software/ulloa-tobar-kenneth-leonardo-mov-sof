@@ -72,7 +72,7 @@ class VistaVideojuego : AppCompatActivity() {
     ) {
         super.onCreateContextMenu(menu, v, menuInfo)
         val inflater = menuInflater
-        inflater.inflate(R.menu.menu_desarrolladora, menu)
+        inflater.inflate(R.menu.menu_videojuego, menu)
         val info = menuInfo as AdapterView.AdapterContextMenuInfo
         val id = info.position
         idVideojuego = adaptador.getItem(id)?.id!!
