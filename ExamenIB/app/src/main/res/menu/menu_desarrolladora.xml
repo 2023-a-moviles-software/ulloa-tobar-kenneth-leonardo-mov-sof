@@ -8,4 +8,7 @@
     <item android:title="Eliminar"
         android:id="@+id/menu_item_eliminar"
         />
+    <item android:title="Ver videojuegos"
+        android:id="@+id/menu_item_ver_elementos"
+        />
 </menu>

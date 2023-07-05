@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import androidx.appcompat.app.AlertDialog
-import com.google.android.material.snackbar.Snackbar
 import ec.edu.epn.swr.emp.examenib.bussiness.BaseDatos
 import ec.edu.epn.swr.emp.examenib.bussiness.Desarrolladora
 import ec.edu.epn.swr.emp.examenib.utils.CambiadorActividad
@@ -50,11 +49,11 @@ class VistaDesarrolladora : AppCompatActivity() {
             activityChange.cambiarActividad(EdicionDesarrolladora::class.java)
         }
 
+        /*
         listView.setOnItemClickListener { adapterView, view, i, l ->
             idSeleccionado = adaptador.getItem(i)?.id!!
-            Log.i("Desarrollo", "${adaptador.getItem(i)}")
             activityChange.cambiarActividad(VistaVideojuego::class.java)
-        }
+        }*/
         registerForContextMenu(listView)
     }
 
@@ -65,7 +64,7 @@ class VistaDesarrolladora : AppCompatActivity() {
     ) {
         super.onCreateContextMenu(menu, v, menuInfo)
         var inflater = menuInflater
-        inflater.inflate(R.menu.menu_items, menu)
+        inflater.inflate(R.menu.menu_desarrolladora, menu)
         val info = menuInfo as AdapterView.AdapterContextMenuInfo
         val id = info.position
         idSeleccionado = adaptador.getItem(id)?.id!!
@@ -97,6 +96,11 @@ class VistaDesarrolladora : AppCompatActivity() {
 
             R.id.menu_item_eliminar -> {
                 abrirDialogoEliminar()
+                true
+            }
+
+            R.id.menu_item_ver_elementos -> {
+                activityChange.cambiarActividad(VistaVideojuego::class.java)
                 true
             }
 
