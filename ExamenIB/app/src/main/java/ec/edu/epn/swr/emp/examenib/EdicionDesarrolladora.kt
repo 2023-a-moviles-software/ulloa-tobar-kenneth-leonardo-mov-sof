@@ -70,7 +70,8 @@ class EdicionDesarrolladora : AppCompatActivity() {
                     esIndependiente = independiente.isChecked
                 )
 
-                generadorSnackbar.mostrar("Desarrolladora creada exitosamente")
+                //generadorSnackbar.mostrar("Desarrolladora creada exitosamente")
+                finish()
 
             }else if (modo == Modo.ACTUALIZACION) {
                 var id: Int = if (desarrolladora?.id != null) desarrolladora?.id!! else -1
@@ -83,7 +84,8 @@ class EdicionDesarrolladora : AppCompatActivity() {
                     esIndependiente = independiente.isChecked,
                     id = id
                 )
-                generadorSnackbar.mostrar("Desarrolladora actualizada exitosamente")
+                //generadorSnackbar.mostrar("Desarrolladora actualizada exitosamente")
+                finish()
             }
 
         } else {

@@ -125,7 +125,8 @@ class EdicionVideojuego : AppCompatActivity() {
                     generos = (panelGenero.adapter as GeneroAdapter).getSelected(),
                     id = it.videojuegos.size + 1
                 )
-                generadorSnackbar.mostrar("¡Videojuego creado exitosamente!")
+                //generadorSnackbar.mostrar("¡Videojuego creado exitosamente!")
+                finish()
             }
         }else if (modo == Modo.ACTUALIZACION) {
             videojuego.nombre = nombre.text.toString()
@@ -135,7 +136,8 @@ class EdicionVideojuego : AppCompatActivity() {
             videojuego.plataformas.addAll((panelPlataforma.adapter as PlataformaAdapter).getSelected())
             videojuego.generos.clear()
             videojuego.generos.addAll((panelGenero.adapter as GeneroAdapter).getSelected())
-            generadorSnackbar.mostrar("¡Videojuego actualizado exitosamente!")
+            //generadorSnackbar.mostrar("¡Videojuego actualizado exitosamente!")
+            finish()
         }
 
 
