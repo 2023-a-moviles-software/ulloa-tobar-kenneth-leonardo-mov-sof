@@ -1,5 +1,6 @@
 package com.example.movilessoftware2023a
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -33,16 +34,26 @@ class FRecyclerViewAdaptadorNombreCedula(
         fun agregarLike() {
             numeroLikes += 1
             likesTextView.text = numeroLikes.toString()
+            contexto.aumentarTotalLikes()
         }
     }
 
-    
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(
+                R.layout.recycler_view_vista,
+                parent,
+                false)
+        return MyViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
+        val entrenadorActual = lista[position]
+        holder.nombreText.text = entrenadorActual.nombre
+        holder.cedulaTextView.text = entrenadorActual.descripcion
+        holder.botonDarLike.text = "Like ${entrenadorActual.id} - ${entrenadorActual.nombre}"
+        holder.likesTextView.text = "0"
     }
 
     override fun getItemCount(): Int = lista.size
