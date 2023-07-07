@@ -105,6 +105,5 @@ class EdicionDesarrolladora : AppCompatActivity() {
         url.setText(desarrolladora.paginaWeb)
         independiente.isChecked = desarrolladora.esIndependiente
     }
-
 }
 

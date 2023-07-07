@@ -105,7 +105,7 @@ class VistaVideojuego : AppCompatActivity() {
 
     fun abrirDialogoEliminar() {
         var builder = AlertDialog.Builder(this)
-        builder.setTitle("¿Desea eliminar?")
+        builder.setTitle("¿Desea eliminar el videojuego?")
         builder.setPositiveButton("Si") { dialog, which ->
             val desarrolladora = BaseDatos.buscarDesarrolladora(idDesarrolladora)
             if(desarrolladora != null){

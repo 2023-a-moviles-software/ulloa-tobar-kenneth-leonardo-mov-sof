@@ -1,5 +1,9 @@
 package ec.edu.epn.swr.emp.examenib.bussiness
 
+import android.annotation.SuppressLint
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
 enum class Genero(val key: String, val title: String) {
     ACTION("AC","Action"), FPS("FPS","FPS"), TPS("TPS","TPS"),
     BATTLE_ROYALE("BR","Battle Royale"), MMO("MMO","MMO"), RPG("RPG","RPG"),
@@ -61,5 +65,21 @@ enum class Plataforma(val id: String, val title: String) {
 
 
 }
+@SuppressLint("NewApi")
+class ManejoFechas {
+    companion object {
+        val formato = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        fun parsearFecha(string: String): LocalDate {
+            return LocalDate.parse(string, formato)
+        }
+
+        fun mostrarFecha(fecha: LocalDate): String {
+            return fecha.format(formato)
+        }
+
+    }
+}
+
+
 
 

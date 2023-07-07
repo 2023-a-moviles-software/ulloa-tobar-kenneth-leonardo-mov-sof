@@ -50,11 +50,6 @@ class VistaDesarrolladora : AppCompatActivity() {
             activityChange.cambiarActividad(EdicionDesarrolladora::class.java)
         }
 
-        /*
-        listView.setOnItemClickListener { adapterView, view, i, l ->
-            idSeleccionado = adaptador.getItem(i)?.id!!
-            activityChange.cambiarActividad(VistaVideojuego::class.java)
-        }*/
         registerForContextMenu(listView)
     }
 
@@ -64,7 +59,7 @@ class VistaDesarrolladora : AppCompatActivity() {
         menuInfo: ContextMenu.ContextMenuInfo?
     ) {
         super.onCreateContextMenu(menu, v, menuInfo)
-        var inflater = menuInflater
+        val inflater = menuInflater
         inflater.inflate(R.menu.menu_desarrolladora, menu)
         val info = menuInfo as AdapterView.AdapterContextMenuInfo
         val id = info.position
@@ -73,11 +68,10 @@ class VistaDesarrolladora : AppCompatActivity() {
     }
 
     fun abrirDialogoEliminar() {
-        var builder = AlertDialog.Builder(this)
-        builder.setTitle("¿Desea eliminar?")
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("¿Desea eliminar la desarrolladora?")
         builder.setPositiveButton("Si") { dialog, which ->
             if(BaseDatos.eliminar(idSeleccionado)){
-                generadorSnackbar.mostrar("Elemento eliminado con éxito")
                 adaptador.notifyDataSetChanged()
             }
         }

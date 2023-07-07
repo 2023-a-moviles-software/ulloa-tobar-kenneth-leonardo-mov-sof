@@ -1,19 +1,15 @@
 package ec.edu.epn.swr.emp.examenib
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.view.ViewParent
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import androidx.constraintlayout.helper.widget.Flow
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ec.edu.epn.swr.emp.examenib.bussiness.BaseDatos
-import ec.edu.epn.swr.emp.examenib.bussiness.Desarrolladora
-import ec.edu.epn.swr.emp.examenib.bussiness.Genero
+import ec.edu.epn.swr.emp.examenib.bussiness.ManejoFechas
 import ec.edu.epn.swr.emp.examenib.bussiness.Videojuego
 import ec.edu.epn.swr.emp.examenib.utils.CambiadorActividad
 import ec.edu.epn.swr.emp.examenib.utils.ContenedorPlataforma
@@ -22,8 +18,7 @@ import ec.edu.epn.swr.emp.examenib.utils.GeneroAdapter
 import ec.edu.epn.swr.emp.examenib.utils.GeneroContenedor
 import ec.edu.epn.swr.emp.examenib.utils.Modo
 import ec.edu.epn.swr.emp.examenib.utils.PlataformaAdapter
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+
 @SuppressLint("NewApi")
 class EdicionVideojuego : AppCompatActivity() {
     var modo = Modo.CREACION
@@ -102,7 +97,9 @@ class EdicionVideojuego : AppCompatActivity() {
 
         nombre.setText(videojuego.nombre)
         calificacion.setText(videojuego.calificacion.toString())
-        fecha.setText(videojuego.fechaLanzamiento.toString())
+        fecha.setText(
+            ManejoFechas.mostrarFecha(videojuego.fechaLanzamiento)
+        )
 
     }
 
@@ -118,7 +115,7 @@ class EdicionVideojuego : AppCompatActivity() {
             desarrolladora?.let {
                 Videojuego(
                     nombre = nombre.text.toString(),
-                    fechaLanzamiento = LocalDate.parse(fecha.text),
+                    fechaLanzamiento = ManejoFechas.parsearFecha(fecha.text.toString()),
                     calificacion = calificacion.text.toString().toDouble(),
                     desarrolladora = it,
                     plataformas = (panelPlataforma.adapter as PlataformaAdapter).getSelected(),
@@ -130,7 +127,7 @@ class EdicionVideojuego : AppCompatActivity() {
             }
         }else if (modo == Modo.ACTUALIZACION) {
             videojuego.nombre = nombre.text.toString()
-            videojuego.fechaLanzamiento = LocalDate.parse(fecha.text)
+            videojuego.fechaLanzamiento = ManejoFechas.parsearFecha(fecha.text.toString())
             videojuego.calificacion = calificacion.text.toString().toDouble()
             videojuego.plataformas.clear()
             videojuego.plataformas.addAll((panelPlataforma.adapter as PlataformaAdapter).getSelected())
@@ -139,8 +136,6 @@ class EdicionVideojuego : AppCompatActivity() {
             //generadorSnackbar.mostrar("¡Videojuego actualizado exitosamente!")
             finish()
         }
-
-
     }
 
 }

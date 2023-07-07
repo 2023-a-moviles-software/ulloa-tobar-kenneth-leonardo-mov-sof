@@ -7,4 +7,5 @@
     <string name="url">Página web</string>
     <string name="crear">Crear</string>
     <string name="guardar">Guardar</string>
+    <string name="formato_fecha">dd-mm-aaaa</string>
 </resources>
