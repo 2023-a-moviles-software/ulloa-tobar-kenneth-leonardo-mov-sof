@@ -2,6 +2,7 @@ package com.example.movilessoftware2023a
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 
@@ -29,14 +30,17 @@ class ECrudEntrenador : AppCompatActivity() {
             val nombre = findViewById<EditText>(R.id.input_nombre)
             val descripcion = findViewById<EditText>(R.id.input_descripcion)
 
-            EBaseDeDatos.tablaEntrenador!!.crearEntrenador(
+            val res = EBaseDeDatos.tablaEntrenador!!.crearEntrenador(
                 nombre.text.toString(),
                 descripcion.text.toString())
-
+            Log.i("Creación", res.toString())
         }
 
+
+
+
         val botonActualizarBDD = findViewById<Button>(R.id.btn_actualizar_bdd)
-        botonCrearBDD.setOnClickListener {
+        botonActualizarBDD.setOnClickListener {
 
             val nombre = findViewById<EditText>(R.id.input_nombre)
             val id = findViewById<EditText>(R.id.input_id)

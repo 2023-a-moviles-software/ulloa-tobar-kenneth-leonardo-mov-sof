@@ -10,17 +10,19 @@
         android:id="@+id/tv_total_likes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginTop="124dp"
         android:text="0"
-        app:layout_constraintBottom_toTopOf="@+id/rv_entrenadores"
         app:layout_constraintEnd_toEndOf="@+id/rv_entrenadores"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/rv_entrenadores" />
+        app:layout_constraintStart_toStartOf="@+id/rv_entrenadores"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_entrenadores"
         android:layout_width="299dp"
         android:layout_height="538dp"
-        tools:layout_editor_absoluteX="56dp"
-        tools:layout_editor_absoluteY="96dp" />
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_total_likes" />
 </androidx.constraintlayout.widget.ConstraintLayout>
