@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Inicio"
+        android:id="@+id/menu_item_inicio"
+        android:icon="@drawable/home_fill"
+        />
+
+    <item
+        android:title="Servicios"
+        android:icon="@drawable/grid"
+        android:id="@+id/menu_item_servicios"
+        />
+
+    <item
+        android:title="Actividad"
+        android:icon="@drawable/ticket"
+        android:id="@+id/menu_item_actividad"
+        />
+
+    <item
+        android:title="Cuenta"
+        android:icon="@drawable/person"
+        android:id="@+id/menu_item_cuenta"
+        />
+
+</menu>
