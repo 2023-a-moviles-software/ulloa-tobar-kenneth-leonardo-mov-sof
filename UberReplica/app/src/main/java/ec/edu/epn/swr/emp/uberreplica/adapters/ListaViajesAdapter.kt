@@ -18,7 +18,7 @@ class ListaViajesAdapter(
 
     override fun onBindViewHolder(holder: ViajeViewHolder, position: Int) {
         val viaje = listaViajes[position]
-        holder.render(viaje)
+        holder.render(viaje, position == listaViajes.size - 1)
     }
 
 }

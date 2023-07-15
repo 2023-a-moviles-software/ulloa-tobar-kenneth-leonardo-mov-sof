@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ec.edu.epn.swr.emp.uberreplica.adapters.ListaViajesAdapter
+import ec.edu.epn.swr.emp.uberreplica.adapters.SugerenciaAdapter
 import ec.edu.epn.swr.emp.uberreplica.model.BaseDeDatos
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,7 +37,6 @@ class FragmentInicio : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
-
     }
 
     override fun onCreateView(
@@ -50,6 +51,14 @@ class FragmentInicio : Fragment() {
         vistaRecientes?.adapter = adaptadorViajes
         vistaRecientes?.layoutManager = LinearLayoutManager(view.context)
         adaptadorViajes.notifyDataSetChanged()
+
+
+        val sugerenciasAdapter = SugerenciaAdapter(BaseDeDatos.sugerencias)
+        val sugerenciasView = view?.findViewById<RecyclerView>(R.id.rv_sugerencias)
+        sugerenciasView?.adapter = sugerenciasAdapter
+        sugerenciasView?.layoutManager = GridLayoutManager(view.context,3,GridLayoutManager.VERTICAL,false)
+        sugerenciasAdapter.notifyDataSetChanged()
+
         return view
     }
 
