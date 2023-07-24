@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomCard">
+        <attr name="bg" format="color" />
+        <attr name="fg" format="color" />
+        <attr name="img" format="reference"/>
+        <attr name="titulo" format="string"/>
+        <attr name="subtitulo" format="string"/>
+    </declare-styleable>
+</resources>

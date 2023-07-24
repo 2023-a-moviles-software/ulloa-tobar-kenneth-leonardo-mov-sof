@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentInicio"
+    android:backgroundTint="@color/white"
 
-    >
+    tools:context=".FragmentInicio">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
-
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             android:background="@drawable/rounded_gray"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="15dp"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,25 +31,78 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
                 android:src="@drawable/magnifying_glass_solid" />
 
             <EditText
-                android:id="@+id/editTextText2"
-                android:layout_width="match_parent"
+                android:id="@+id/busqueda_punto"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="3dp"
+                android:layout_marginStart="5dp"
                 android:layout_toEndOf="@+id/imageView"
+                android:layout_weight="20"
                 android:background="@android:color/transparent"
                 android:ems="10"
                 android:hint="Ingresa el punto..."
                 android:inputType="text"
-                android:textColorHint="@color/black" />
+                android:textColorHint="@color/black"
+                android:textSize="12dp" />
+            <FrameLayout
+                android:id="@+id/spacer"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/dark_gray"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/busqueda_punto"
+                />
+
+            <LinearLayout
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/spacer"
+                android:padding="5dp"
+                android:background="@drawable/white_rounded_100"
+                android:layout_weight="1"
+                >
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="false"
+                    android:cropToPadding="false"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/clock" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="2"
+                    android:text="Ahora"
+                    android:textAlignment="center"
+                    android:textSize="12dp" />
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/angle_down_solid" />
+
+            </LinearLayout>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_viajes_recientes"
@@ -61,54 +114,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
-        <FrameLayout
+        <ec.edu.epn.swr.emp.uberreplica.elements.CustomCard
             android:id="@+id/banner"
             android:layout_width="0dp"
-            android:layout_height="170dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/banner"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rv_viajes_recientes"
-
-            >
-
-            <LinearLayout
-                android:layout_marginTop="24dp"
-                android:layout_marginStart="24dp"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="¿Quieres mejores inicios de viaje?"
-                    android:textSize="24dp"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_marginTop="18dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Comparte tu ubicación"
-                    android:textSize="18dp"
-                    android:textColor="@color/white"
-                    />
-
-            </LinearLayout>
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:layout_gravity="end"
-                android:layout_marginEnd="-170dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/searching2" />
-        </FrameLayout>
-
+            custom:bg="@color/green_1"
+            custom:fg="@color/green_2"
+            custom:img="@drawable/searching2"
+            custom:subtitulo="Comparte tu ubicación"
+            custom:titulo="¿Quieres mejores inicios de viaje?" />
 
         <TextView
             android:id="@+id/textView"
@@ -134,6 +151,64 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+        <TextView
+            android:id="@+id/txt2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/rv_sugerencias"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="22dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Cómo planificar con Uber"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_planificacion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/txt2"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_paneles"
+            android:layout_width="0dp"
+            android:layout_height="170dp"
+            android:layout_marginTop="16dp"
+            custom:layout_constraintLeft_toLeftOf="parent"
+            custom:layout_constraintRight_toRightOf="parent"
+            custom:layout_constraintTop_toBottomOf="@id/rv_planificacion" />
+
+        <TextView
+            android:id="@+id/txt3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/rv_paneles"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="22dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Más maneras de usar Uber"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_maneras"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/txt3"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

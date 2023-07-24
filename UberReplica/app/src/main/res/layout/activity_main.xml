@@ -11,22 +11,27 @@
         android:name="ec.edu.epn.swr.emp.uberreplica.FragmentInicio"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/nav_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/nav_bar"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/white_lined"
+        app:itemActiveIndicatorStyle="@android:style/Widget.Holo.Light.TextView.SpinnerItem"
+        app:itemHorizontalTranslationEnabled="false"
+        app:itemIconTint="@color/draw_item"
+        app:itemTextColor="@color/draw_item"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_menu" >
+        app:menu="@menu/bottom_menu">
 
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>

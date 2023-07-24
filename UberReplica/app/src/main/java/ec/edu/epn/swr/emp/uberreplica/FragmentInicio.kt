@@ -9,8 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import ec.edu.epn.swr.emp.uberreplica.adapters.ListaViajesAdapter
+import ec.edu.epn.swr.emp.uberreplica.adapters.PanelAdapter
+import ec.edu.epn.swr.emp.uberreplica.adapters.PanelCartaAdapter
 import ec.edu.epn.swr.emp.uberreplica.adapters.SugerenciaAdapter
 import ec.edu.epn.swr.emp.uberreplica.model.BaseDeDatos
 
@@ -59,8 +62,40 @@ class FragmentInicio : Fragment() {
         sugerenciasView?.layoutManager = GridLayoutManager(view.context,3,GridLayoutManager.VERTICAL,false)
         sugerenciasAdapter.notifyDataSetChanged()
 
+        val planificacionAdapter = PanelCartaAdapter(BaseDeDatos.planificaciones)
+        val planificacionView = view?.findViewById<RecyclerView>(R.id.rv_planificacion)
+        planificacionView?.adapter = planificacionAdapter
+        val layout = LinearLayoutManager(view.context)
+        layout.orientation = LinearLayoutManager.HORIZONTAL
+        planificacionView?.layoutManager = layout
+        planificacionAdapter.notifyDataSetChanged()
+
+        val panelAdapter = PanelAdapter(BaseDeDatos.paneles)
+        val panelView = view?.findViewById<RecyclerView>(R.id.rv_paneles)
+        panelView?.adapter = panelAdapter
+        val layoutPanel = LinearLayoutManager(view.context)
+        layoutPanel.orientation = LinearLayoutManager.HORIZONTAL
+        panelView?.layoutManager = layoutPanel
+        panelAdapter.notifyDataSetChanged()
+
+        val snapHelper = LinearSnapHelper()
+        snapHelper.attachToRecyclerView(panelView);
+
+        run {
+            val rv_manes = view.findViewById<RecyclerView>(R.id.rv_maneras)
+            val adapter = PanelCartaAdapter(BaseDeDatos.maneras)
+            rv_manes.adapter = adapter
+            val layout = LinearLayoutManager(view.context)
+            layout.orientation = LinearLayoutManager.HORIZONTAL
+            rv_manes.layoutManager = layout
+            adapter.notifyDataSetChanged()
+
+        }
+
         return view
     }
+
+
 
     companion object {
         /**
