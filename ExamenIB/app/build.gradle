@@ -9,8 +9,8 @@ android {
 
     defaultConfig {
         applicationId "ec.edu.epn.swr.emp.examenib"
-        minSdk 24
-        targetSdk 34
+        minSdk 26
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 

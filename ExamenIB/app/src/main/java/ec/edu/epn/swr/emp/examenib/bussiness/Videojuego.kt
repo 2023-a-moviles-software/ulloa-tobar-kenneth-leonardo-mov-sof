@@ -9,7 +9,7 @@ class Videojuego {
     var calificacion: Double
     val plataformas: ArrayList<Plataforma>
     val generos: ArrayList<Genero>
-    val id: Int?
+    val id: Int
 
     constructor(
         nombre: String,
@@ -18,7 +18,7 @@ class Videojuego {
         calificacion: Double,
         generos: ArrayList<Genero> = ArrayList(),
         plataformas: ArrayList<Plataforma> = ArrayList(),
-        id: Int? = null
+        id: Int = -1
     ) {
         this.nombre = nombre
         this.fechaLanzamiento = fechaLanzamiento

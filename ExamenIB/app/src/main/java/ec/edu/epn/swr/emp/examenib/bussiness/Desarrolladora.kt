@@ -6,7 +6,7 @@ class Desarrolladora {
     var paginaWeb: String
     var esIndependiente: Boolean
     val videojuegos: ArrayList<Videojuego>
-    val id: Int?
+    val id: Int
 
     constructor(
         nombre: String,
@@ -15,7 +15,7 @@ class Desarrolladora {
         paginaWeb: String,
         esIndependiente: Boolean,
         videojuegos: ArrayList<Videojuego> = ArrayList(),
-        id: Int? = null
+        id: Int = -1
     ) {
         this.nombre = nombre
         this.ubicacion = ubicacion
@@ -38,4 +38,5 @@ class Desarrolladora {
         }
         return super.equals(other)
     }
+
 }

@@ -40,35 +40,22 @@ class VistaVideojuego : AppCompatActivity() {
             intent.putExtra("idDesarrolladora", idDesarrolladora)
         }
 
-        val videojuegos = ArrayList<Videojuego>()
         if(idDesarrolladora != -1) {
-            val desarrolladora = BaseDatos.buscarDesarrolladora(idDesarrolladora)
-            if (desarrolladora != null) {
+            val desarrolladora = BaseDatos.desarrolladoras!!.consultarDesarrolladora(idDesarrolladora)
+            if (desarrolladora.id != -1) {
                 this.desarrolladora = desarrolladora
                 //videojuegos.addAll(desarrolladora.videojuegos)
                 desarrolladoraTextView.text = desarrolladora.nombre
             }
         }
 
-        val listView = findViewById<ListView>(R.id.lv_videojuegos)
-        adaptador = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            desarrolladora.videojuegos
-        )
-
-        listView.adapter = adaptador
-        adaptador.notifyDataSetChanged()
-
-        registerForContextMenu(listView)
-
         val botonCrear = findViewById<Button>(R.id.btn_crear_videojuego)
 
         botonCrear.setOnClickListener {
             modo = Modo.CREACION
             cambiadorActividad.cambiarActividad(EdicionVideojuego::class.java)
-
         }
+        cargarAdapter()
     }
 
     override fun onCreateContextMenu(
@@ -107,9 +94,8 @@ class VistaVideojuego : AppCompatActivity() {
         var builder = AlertDialog.Builder(this)
         builder.setTitle("¿Desea eliminar el videojuego?")
         builder.setPositiveButton("Si") { dialog, which ->
-            val desarrolladora = BaseDatos.buscarDesarrolladora(idDesarrolladora)
+            val desarrolladora = BaseDatos.desarrolladoras?.consultarDesarrolladora(idDesarrolladora)
             if(desarrolladora != null){
-                //generadorSnackbar.mostrar("Elemento eliminado con éxito")
                 desarrolladora.videojuegos.removeIf { it.id == idVideojuego }
                 adaptador.notifyDataSetChanged()
             }
@@ -123,6 +109,21 @@ class VistaVideojuego : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         adaptador.notifyDataSetChanged()
+    }
+
+    private fun cargarAdapter(): ListView {
+        val listView = findViewById<ListView>(R.id.lv_videojuegos)
+        adaptador = ArrayAdapter(
+            this,
+            android.R.layout.simple_list_item_1,
+            desarrolladora.videojuegos
+        )
+
+        listView.adapter = adaptador
+        adaptador.notifyDataSetChanged()
+
+        registerForContextMenu(listView)
+        return listView
     }
 
 }

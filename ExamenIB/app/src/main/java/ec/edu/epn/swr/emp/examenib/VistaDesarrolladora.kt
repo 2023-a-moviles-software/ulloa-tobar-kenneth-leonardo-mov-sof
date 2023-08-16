@@ -35,22 +35,13 @@ class VistaDesarrolladora : AppCompatActivity() {
             intent.putExtra("modo", modo)
         }
 
-        val listView = findViewById<ListView>(R.id.lv_desarrolladoras)
-        adaptador = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            BaseDatos.desarrolladoras
-        )
-        listView.adapter = adaptador
-        adaptador.notifyDataSetChanged()
-
         val botonCrear = findViewById<Button>(R.id.btn_crear_desarrolladora)
         botonCrear.setOnClickListener {
             modo = Modo.CREACION
             activityChange.cambiarActividad(EdicionDesarrolladora::class.java)
         }
 
-        registerForContextMenu(listView)
+        registerForContextMenu(cargarAdapter())
     }
 
     override fun onCreateContextMenu(
@@ -71,8 +62,8 @@ class VistaDesarrolladora : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("¿Desea eliminar la desarrolladora?")
         builder.setPositiveButton("Si") { dialog, which ->
-            if(BaseDatos.eliminar(idSeleccionado)){
-                adaptador.notifyDataSetChanged()
+            if(BaseDatos.desarrolladoras!!.eliminarDesarrolladora(idSeleccionado)){
+                cargarAdapter()
             }
         }
         builder.setNegativeButton("No", null)
@@ -108,11 +99,23 @@ class VistaDesarrolladora : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
-        adaptador.notifyDataSetChanged()
+        cargarAdapter()
     }
 
     override fun onResume() {
         super.onResume()
+        cargarAdapter()
+    }
+
+    private fun cargarAdapter(): ListView {
+        val listView = findViewById<ListView>(R.id.lv_desarrolladoras)
+        adaptador = ArrayAdapter(
+            this,
+            android.R.layout.simple_list_item_1,
+            BaseDatos.desarrolladoras?.consultarTodo()!!
+        )
+        listView.adapter = adaptador
         adaptador.notifyDataSetChanged()
+        return listView
     }
 }
