@@ -34,5 +34,4 @@ class FRecyclerView : AppCompatActivity() {
         adaptador.notifyDataSetChanged()
     }
 
-
 }
