@@ -31,7 +31,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/nombre"
+            android:text="Nombre"
             tools:layout_editor_absoluteX="60dp"
             tools:layout_editor_absoluteY="275dp" />
 
@@ -40,14 +40,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:ems="10"
-            android:hint="@string/nombre"
+            android:hint="Nombre"
             android:inputType="text" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/ubicacion"
+            android:text="Ubicación"
             tools:layout_editor_absoluteX="60dp"
             tools:layout_editor_absoluteY="275dp" />
 
@@ -56,14 +56,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:ems="10"
-            android:hint="@string/ubicacion"
+            android:hint="Ubicación"
             android:inputType="text" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/anio"
+            android:text="Año"
             tools:layout_editor_absoluteX="60dp"
             tools:layout_editor_absoluteY="275dp" />
 
@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/anio"
+            android:hint="Año"
             android:inputType="number"
             android:textSize="18dp"
             tools:layout_editor_absoluteX="87dp"
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/independiente"
+            android:text="Independiente"
             android:textSize="18sp"
             tools:layout_editor_absoluteX="43dp"
             tools:layout_editor_absoluteY="281dp" />
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/url"
+            android:text="Página web"
             tools:layout_editor_absoluteX="60dp"
             tools:layout_editor_absoluteY="275dp" />
 
@@ -101,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/url"
+            android:hint="Página web"
             android:inputType="text"
             tools:layout_editor_absoluteX="119dp"
             tools:layout_editor_absoluteY="354dp" />
@@ -120,7 +120,7 @@
         android:id="@+id/btn_guardar_desarrolladora"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/guardar"
+        android:text="Guardar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
