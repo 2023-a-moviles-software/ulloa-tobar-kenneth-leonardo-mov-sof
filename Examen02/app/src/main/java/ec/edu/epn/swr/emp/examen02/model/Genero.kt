@@ -1,10 +1,18 @@
 package ec.edu.epn.swr.emp.examen02.model
 
 enum class Genero(val key: String, val title: String) {
-    ACTION("AC","Action"), FPS("FPS","FPS"), TPS("TPS","TPS"),
-    BATTLE_ROYALE("BR","Battle Royale"), MMO("MMO","MMO"), RPG("RPG","RPG"),
-    ADVENTURE("ADV","Adventure"), SHOOTER("SHO","Shooter"), HORROR("HRR","Horror"),
-    CARDS("CRD","Cards"), BOARD_GAME("BG","Board Game"), PLATFORMER("PF","Platformer");
+    ACTION("AC","Action"),
+    FPS("FPS","FPS"),
+    TPS("TPS","TPS"),
+    BATTLE_ROYALE("BR","Battle Royale"),
+    MMO("MMO","MMO"),
+    RPG("RPG","RPG"),
+    ADVENTURE("ADV","Adventure"),
+    SHOOTER("SHO","Shooter"),
+    HORROR("HRR","Horror"),
+    CARDS("CRD","Cards"),
+    BOARD_GAME("BG","Board Game"),
+    PLATFORMER("PF","Platformer");
 
     init {
         this.key

@@ -1,8 +1,12 @@
 package ec.edu.epn.swr.emp.examen02.model
 
 enum class Plataforma(val key: String, val title: String) {
-    XBOX("XBX","Xbox"), PS("PS","PlayStation"), PC("PC","PC"), N_SWITCH("NSW","Nintendo Switch"),
-    MOBILE("MOB","Mobile Devices"), NES("NES","NES");
+    XBOX("XBX","Xbox"),
+    PS("PS","PlayStation"),
+    PC("PC","PC"),
+    N_SWITCH("NSW","Nintendo Switch"),
+    MOBILE("MOB","Mobile Devices"),
+    NES("NES","NES");
 
     init {
         this.key
