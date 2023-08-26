@@ -6,4 +6,124 @@
     android:layout_height="match_parent"
     tools:context=".EdicionDesarrolladora">
 
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Desarrolladora"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/te_modo_desarrolladora">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nombre"
+            tools:layout_editor_absoluteX="60dp"
+            tools:layout_editor_absoluteY="275dp" />
+
+        <EditText
+            android:id="@+id/te_nombre_desarrolladora"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:hint="@string/nombre"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/ubicacion"
+            tools:layout_editor_absoluteX="60dp"
+            tools:layout_editor_absoluteY="275dp" />
+
+        <EditText
+            android:id="@+id/te_ubicacion_desarrolladora"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:hint="@string/ubicacion"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/anio"
+            tools:layout_editor_absoluteX="60dp"
+            tools:layout_editor_absoluteY="275dp" />
+
+        <EditText
+            android:id="@+id/te_anio_desarrolladora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/anio"
+            android:inputType="number"
+            android:textSize="18dp"
+            tools:layout_editor_absoluteX="87dp"
+            tools:layout_editor_absoluteY="228dp" />
+
+        <Switch
+            android:id="@+id/switch_independiente_desarrolladora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/independiente"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="43dp"
+            tools:layout_editor_absoluteY="281dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/url"
+            tools:layout_editor_absoluteX="60dp"
+            tools:layout_editor_absoluteY="275dp" />
+
+        <EditText
+            android:id="@+id/te_url_desarrolladora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/url"
+            android:inputType="text"
+            tools:layout_editor_absoluteX="119dp"
+            tools:layout_editor_absoluteY="354dp" />
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/te_modo_desarrolladora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modo"
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <Button
+        android:id="@+id/btn_guardar_desarrolladora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/guardar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
