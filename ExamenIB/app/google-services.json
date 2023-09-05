@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "520190054943",
+    "project_id": "examen-moviles-2023",
+    "storage_bucket": "examen-moviles-2023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520190054943:android:35dab0b6506bce1eec3b2a",
+        "android_client_info": {
+          "package_name": "ec.edu.epn.swr.emp.examen02"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520190054943-8l4f25hssp4u11vg7vvr5dsv3t2083be.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhNmR14qPGnpzNXijY9sKgvnb2uz-RwZ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520190054943-8l4f25hssp4u11vg7vvr5dsv3t2083be.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520190054943:android:f96c798f55658a07ec3b2a",
+        "android_client_info": {
+          "package_name": "ec.edu.epn.swr.emp.examenib"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520190054943-8l4f25hssp4u11vg7vvr5dsv3t2083be.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhNmR14qPGnpzNXijY9sKgvnb2uz-RwZ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520190054943-8l4f25hssp4u11vg7vvr5dsv3t2083be.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

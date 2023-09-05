@@ -1,6 +1,7 @@
 package ec.edu.epn.swr.emp.examenib
 
 import android.annotation.SuppressLint
+import android.graphics.MeshSpecification.Varying
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -9,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ec.edu.epn.swr.emp.examenib.bussiness.BaseDatos
+import ec.edu.epn.swr.emp.examenib.bussiness.Desarrolladora
 import ec.edu.epn.swr.emp.examenib.bussiness.ManejoFechas
+import ec.edu.epn.swr.emp.examenib.bussiness.Variables
 import ec.edu.epn.swr.emp.examenib.bussiness.Videojuego
 import ec.edu.epn.swr.emp.examenib.utils.CambiadorActividad
 import ec.edu.epn.swr.emp.examenib.utils.ContenedorPlataforma
@@ -22,7 +25,8 @@ import ec.edu.epn.swr.emp.examenib.utils.PlataformaAdapter
 @SuppressLint("NewApi")
 class EdicionVideojuego : AppCompatActivity() {
     var modo = Modo.CREACION
-    lateinit var videojuego: Videojuego
+    var videojuego: Videojuego? = null
+    var desarrolladora: Desarrolladora? = null
     lateinit var adaptadorGenero: GeneroAdapter
     val cambiadorActividad = CambiadorActividad(this)
     lateinit var generadorSnackbar: GeneradorSnackbar
@@ -38,13 +42,15 @@ class EdicionVideojuego : AppCompatActivity() {
 
         generadorSnackbar = GeneradorSnackbar(findViewById(R.id.te_modo_videojuego))
 
-        modo = intent.getSerializableExtra("modo", Modo::class.java) as Modo
+        modo = Modo.fromInt(intent.getIntExtra("modo", Modo.CREACION.key))
         val modoText = findViewById<TextView>(R.id.te_modo_videojuego)
         modoText.text = modo.nombre
-        val idDesarrolladora = intent.getIntExtra("idDesarrolladora", -1)
-        val idVideojuego = intent.getIntExtra("idVideojuego", -1)
-        val desarrolladora = BaseDatos.buscarDesarrolladora(idDesarrolladora)
+
+
+        desarrolladora = intent.getParcelableExtra("desarrolladora",Desarrolladora::class.java)
+        videojuego = intent.getParcelableExtra("videojuego", Videojuego::class.java)
         val desarrolladoraText = findViewById<TextView>(R.id.tv_desarrolladora_videojuego)
+        desarrolladoraText.text = desarrolladora!!.nombre!!
 
         val panelGenero = findViewById<RecyclerView>(R.id.panel_generos)
         adaptadorGenero = GeneroAdapter(GeneroContenedor.crearLista())
@@ -57,17 +63,12 @@ class EdicionVideojuego : AppCompatActivity() {
         panelPlataforma.layoutManager = LinearLayoutManager(this)
         (panelPlataforma.adapter as PlataformaAdapter).notifyDataSetChanged()
 
-        desarrolladora?.let {//La desarrolladora existe y no es nula
-            desarrolladoraText.text = it.nombre
-            it.videojuegos.find {
-                    videojuego ->  videojuego.id == idVideojuego
-            }?.let { //se encuentra un videojuego
-                    self -> videojuego = self
-            }
-        }
 
         if (modo == Modo.ACTUALIZACION) {
-            cargarDatosVideojuego(videojuego)
+            videojuego?.let {
+                cargarDatosVideojuego(it)
+            }
+
         }
 
         val botonGuardar = findViewById<Button>(R.id.btn_guardar_videojuego)
@@ -91,14 +92,14 @@ class EdicionVideojuego : AppCompatActivity() {
         val calificacion = findViewById<EditText>(R.id.tv_calificacion_videojuego)
 
         if (modo == Modo.ACTUALIZACION) {
-            panelGenero.adapter = GeneroAdapter(GeneroContenedor.crearLista(videojuego.generos))
-            panelPlataforma.adapter = PlataformaAdapter(ContenedorPlataforma.crearLista(videojuego.plataformas))
+            panelGenero.adapter = GeneroAdapter(GeneroContenedor.crearLista(videojuego.generos!!))
+            panelPlataforma.adapter = PlataformaAdapter(ContenedorPlataforma.crearLista(videojuego.plataformas!!))
         }
 
         nombre.setText(videojuego.nombre)
         calificacion.setText(videojuego.calificacion.toString())
         fecha.setText(
-            ManejoFechas.mostrarFecha(videojuego.fechaLanzamiento)
+            ManejoFechas.mostrarFecha(videojuego.fechaLanzamiento!!)
         )
 
     }
@@ -110,31 +111,52 @@ class EdicionVideojuego : AppCompatActivity() {
         val fecha = findViewById<EditText>(R.id.tv_fecha_videojuego)
         val calificacion = findViewById<EditText>(R.id.tv_calificacion_videojuego)
         if (modo == Modo.CREACION) {
-            val idDesarrolladora = intent.getIntExtra("idDesarrolladora", -1)
-            val desarrolladora = BaseDatos.buscarDesarrolladora(idDesarrolladora)
+
             desarrolladora?.let {
-                Videojuego(
+                val videojuegoCreado = Videojuego(
                     nombre = nombre.text.toString(),
                     fechaLanzamiento = ManejoFechas.parsearFecha(fecha.text.toString()),
                     calificacion = calificacion.text.toString().toDouble(),
                     desarrolladora = it,
                     plataformas = (panelPlataforma.adapter as PlataformaAdapter).getSelected(),
                     generos = (panelGenero.adapter as GeneroAdapter).getSelected(),
-                    id = it.videojuegos.size + 1
                 )
-                //generadorSnackbar.mostrar("¡Videojuego creado exitosamente!")
-                finish()
+                crearVideojuego(videojuegoCreado)
+
             }
         }else if (modo == Modo.ACTUALIZACION) {
-            videojuego.nombre = nombre.text.toString()
-            videojuego.fechaLanzamiento = ManejoFechas.parsearFecha(fecha.text.toString())
-            videojuego.calificacion = calificacion.text.toString().toDouble()
-            videojuego.plataformas.clear()
-            videojuego.plataformas.addAll((panelPlataforma.adapter as PlataformaAdapter).getSelected())
-            videojuego.generos.clear()
-            videojuego.generos.addAll((panelGenero.adapter as GeneroAdapter).getSelected())
-            //generadorSnackbar.mostrar("¡Videojuego actualizado exitosamente!")
+            videojuego?.let {
+                it.nombre = nombre.text.toString()
+                it.fechaLanzamiento = ManejoFechas.parsearFecha(fecha.text.toString())
+                it.calificacion = calificacion.text.toString().toDouble()
+                it.plataformas!!.clear()
+                it.plataformas.addAll((panelPlataforma.adapter as PlataformaAdapter).getSelected())
+                it.generos!!.clear()
+                it.generos.addAll((panelGenero.adapter as GeneroAdapter).getSelected())
+                actualizarVideojuego(it)
+            }
+
+
+        }
+    }
+
+    fun crearVideojuego(videojuego: Videojuego) {
+        BaseDatos.crearVideojuego(videojuego) {
             finish()
+        }
+    }
+
+    fun actualizarVideojuego(videojuego: Videojuego) {
+        BaseDatos.actualizarVideojuego(videojuego) {
+            when(it) {
+                Variables.EXITO -> {
+                    finish()
+                }
+
+                Variables.FALLO -> {
+                    generadorSnackbar.mostrar("Error al actualizar el videojuego")
+                }
+            }
         }
     }
 

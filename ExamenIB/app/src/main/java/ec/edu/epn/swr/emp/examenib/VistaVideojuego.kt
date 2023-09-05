@@ -13,40 +13,38 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import ec.edu.epn.swr.emp.examenib.bussiness.BaseDatos
 import ec.edu.epn.swr.emp.examenib.bussiness.Desarrolladora
+import ec.edu.epn.swr.emp.examenib.bussiness.Variables
 import ec.edu.epn.swr.emp.examenib.bussiness.Videojuego
 import ec.edu.epn.swr.emp.examenib.utils.CambiadorActividad
+import ec.edu.epn.swr.emp.examenib.utils.GeneradorSnackbar
 import ec.edu.epn.swr.emp.examenib.utils.Modo
-
+@Suppress("all")
 class VistaVideojuego : AppCompatActivity() {
     val cambiadorActividad: CambiadorActividad = CambiadorActividad(this)
     var modo: Modo = Modo.CREACION
-    private var idVideojuego = -1
-    private var idDesarrolladora = -1
     lateinit var adaptador: ArrayAdapter<Videojuego>
-    lateinit var desarrolladora: Desarrolladora
+    var desarrolladora: Desarrolladora? = null
+    var videojuego: Videojuego? = null
+    val listaVideojuegos = ArrayList<Videojuego>()
+    lateinit var generadorSnackbar: GeneradorSnackbar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vista_videojuego)
 
 
         val desarrolladoraTextView = findViewById<TextView>(R.id.textView_desarrolladora)
-
-        idDesarrolladora = intent.getIntExtra("idDesarrolladora", -1)
+        generadorSnackbar = GeneradorSnackbar(desarrolladoraTextView)
+        desarrolladora = intent.getParcelableExtra("desarrolladora", Desarrolladora::class.java)
 
         cambiadorActividad.callback = {
                 intent ->
-            intent.putExtra("modo", modo)
-            intent.putExtra("idVideojuego", idVideojuego)
-            intent.putExtra("idDesarrolladora", idDesarrolladora)
+            intent.putExtra("modo", modo.key)
+            intent.putExtra("videojuego", videojuego)
+            intent.putExtra("desarrolladora", desarrolladora)
         }
 
-        if(idDesarrolladora != -1) {
-            val desarrolladora = BaseDatos.desarrolladoras!!.consultarDesarrolladora(idDesarrolladora)
-            if (desarrolladora.id != -1) {
-                this.desarrolladora = desarrolladora
-                //videojuegos.addAll(desarrolladora.videojuegos)
-                desarrolladoraTextView.text = desarrolladora.nombre
-            }
+        if(desarrolladora != null) {
+            desarrolladoraTextView.text = desarrolladora!!.nombre
         }
 
         val botonCrear = findViewById<Button>(R.id.btn_crear_videojuego)
@@ -55,7 +53,19 @@ class VistaVideojuego : AppCompatActivity() {
             modo = Modo.CREACION
             cambiadorActividad.cambiarActividad(EdicionVideojuego::class.java)
         }
+
+
+        val listView = findViewById<ListView>(R.id.lv_videojuegos)
+        adaptador = ArrayAdapter(
+            this,
+            android.R.layout.simple_list_item_1,
+            listaVideojuegos
+        )
+
+        listView.adapter = adaptador
+        registerForContextMenu(listView)
         cargarAdapter()
+
     }
 
     override fun onCreateContextMenu(
@@ -68,7 +78,7 @@ class VistaVideojuego : AppCompatActivity() {
         inflater.inflate(R.menu.menu_videojuego, menu)
         val info = menuInfo as AdapterView.AdapterContextMenuInfo
         val id = info.position
-        idVideojuego = adaptador.getItem(id)?.id!!
+        videojuego = adaptador.getItem(id)
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
@@ -94,10 +104,15 @@ class VistaVideojuego : AppCompatActivity() {
         var builder = AlertDialog.Builder(this)
         builder.setTitle("¿Desea eliminar el videojuego?")
         builder.setPositiveButton("Si") { dialog, which ->
-            val desarrolladora = BaseDatos.desarrolladoras?.consultarDesarrolladora(idDesarrolladora)
-            if(desarrolladora != null){
-                desarrolladora.videojuegos.removeIf { it.id == idVideojuego }
-                adaptador.notifyDataSetChanged()
+            BaseDatos.eliminarVideojuego(videojuego!!.id!!){
+                when(it) {
+                    Variables.EXITO -> {
+                        generadorSnackbar.mostrar("Videojuego eliminado exitosamente")
+                    }
+                    Variables.FALLO -> {
+                        generadorSnackbar.mostrar("Error al eliminar el videojuego")
+                    }
+                }
             }
         }
         builder.setNegativeButton("No", null)
@@ -108,22 +123,16 @@ class VistaVideojuego : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        adaptador.notifyDataSetChanged()
+        cargarAdapter()
     }
 
-    private fun cargarAdapter(): ListView {
-        val listView = findViewById<ListView>(R.id.lv_videojuegos)
-        adaptador = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            desarrolladora.videojuegos
-        )
-
-        listView.adapter = adaptador
-        adaptador.notifyDataSetChanged()
-
-        registerForContextMenu(listView)
-        return listView
+    private fun cargarAdapter() {
+        BaseDatos.getVideojuegosPorDesarrolladora(desarrolladora!!) {
+            videojuegos ->
+            listaVideojuegos.clear()
+            listaVideojuegos.addAll(videojuegos)
+            adaptador.notifyDataSetChanged()
+        }
     }
 
 }

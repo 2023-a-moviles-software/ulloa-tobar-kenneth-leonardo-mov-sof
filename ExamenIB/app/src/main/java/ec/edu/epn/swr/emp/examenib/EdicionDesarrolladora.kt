@@ -10,6 +10,8 @@ import android.widget.EditText
 import android.widget.Switch
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import ec.edu.epn.swr.emp.examenib.bussiness.BaseDatos
 import ec.edu.epn.swr.emp.examenib.bussiness.Desarrolladora
 import ec.edu.epn.swr.emp.examenib.utils.CambiadorActividad
@@ -21,23 +23,24 @@ class EdicionDesarrolladora : AppCompatActivity() {
     var desarrolladora: Desarrolladora? = null
     val cambiadorActividad = CambiadorActividad(this)
     lateinit var generadorSnackbar: GeneradorSnackbar
-    @SuppressLint("NewApi")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edicion_desarrolladora)
-        generadorSnackbar = GeneradorSnackbar(findViewById(R.id.te_modo_desarrolladora))
-        val botonGuardar = findViewById<Button>(R.id.btn_guardar_desarrolladora)
-        val textViewModo = findViewById<TextView>(R.id.te_modo_desarrolladora)
 
-        modo = intent.getSerializableExtra("modo", Modo::class.java) as Modo
+        val textViewModo = findViewById<TextView>(R.id.te_modo_desarrolladora)
+        generadorSnackbar = GeneradorSnackbar(textViewModo)
+        val botonGuardar = findViewById<Button>(R.id.btn_guardar_desarrolladora)
+
+
+        modo = Modo.fromInt(intent.getIntExtra("modo", 0))
         textViewModo.text = modo.nombre
 
         if (modo == Modo.ACTUALIZACION) {
-            val id = intent.getIntExtra("idDesarrolladora", -1)
-            Log.i("Desarrollo","$id")
-            desarrolladora = BaseDatos.buscarDesarrolladora(id)
+            desarrolladora = intent.getParcelableExtra("desarrolladora", Desarrolladora::class.java)
+
             desarrolladora?.let {
-                cargarDatosDesarrolladora(desarrolladora!!)
+                cargarDatosDesarrolladora(it)
             }
 
         }
@@ -62,30 +65,29 @@ class EdicionDesarrolladora : AppCompatActivity() {
             url.text.isNotEmpty()
         ) {
             if(modo == Modo.CREACION){
-                BaseDatos.crearDesarrolladora(
+
+                crearDesarrolladora(Desarrolladora(
                     nombre = nombre.text.toString(),
                     ubicacion = ubicacion.text.toString(),
                     paginaWeb = url.text.toString(),
                     anio = anio.text.toString().toInt(),
                     esIndependiente = independiente.isChecked
-                )
-
-                //generadorSnackbar.mostrar("Desarrolladora creada exitosamente")
-                finish()
+                ))
 
             }else if (modo == Modo.ACTUALIZACION) {
-                var id: Int = if (desarrolladora?.id != null) desarrolladora?.id!! else -1
 
-                BaseDatos.actualizarDesarrolladora(
-                    nombre = nombre.text.toString(),
-                    ubicacion = ubicacion.text.toString(),
-                    paginaWeb = url.text.toString(),
-                    anio = anio.text.toString().toInt(),
-                    esIndependiente = independiente.isChecked,
-                    id = id
-                )
-                //generadorSnackbar.mostrar("Desarrolladora actualizada exitosamente")
-                finish()
+                desarrolladora?.let {
+                    desarrolladora ->
+                    Log.i("EEE","Llegó")
+                    if(desarrolladora.id != null) {
+                        desarrolladora.nombre = nombre.text.toString()
+                        desarrolladora.ubicacion = ubicacion.text.toString()
+                        desarrolladora.paginaWeb = url.text.toString()
+                        desarrolladora.anioCreacion = anio.text.toString().toInt()
+                        desarrolladora.esIndependiente = independiente.isChecked
+                        actualizarDesarrolladora(desarrolladora)
+                    }
+                }
             }
 
         } else {
@@ -104,6 +106,44 @@ class EdicionDesarrolladora : AppCompatActivity() {
         anio.setText(desarrolladora.anioCreacion.toString())
         url.setText(desarrolladora.paginaWeb)
         independiente.isChecked = desarrolladora.esIndependiente
+    }
+
+    fun crearDesarrolladora(desarrolladora: Desarrolladora) {
+        val desarrolladoraMap = hashMapOf(
+            "nombre" to desarrolladora.nombre,
+            "paginaWeb" to desarrolladora.paginaWeb,
+            "anioCreacion" to desarrolladora.anioCreacion,
+            "ubicacion" to desarrolladora.ubicacion,
+            "esIndependiente" to desarrolladora.esIndependiente
+        )
+        val db = Firebase.firestore
+        db.collection("desarrolladoras")
+            .add(desarrolladoraMap)
+            .addOnSuccessListener {
+                finish()
+            }.addOnFailureListener {
+                generadorSnackbar.mostrar("Error al guardar la desarrolladora")
+            }
+    }
+
+    fun actualizarDesarrolladora(desarrolladora: Desarrolladora) {
+        val desarrolladoraMap = hashMapOf(
+            "nombre" to desarrolladora.nombre,
+            "paginaWeb" to desarrolladora.paginaWeb,
+            "anioCreacion" to desarrolladora.anioCreacion,
+            "ubicacion" to desarrolladora.ubicacion,
+            "esIndependiente" to desarrolladora.esIndependiente
+        )
+        val db = Firebase.firestore
+        db.collection("desarrolladoras")
+            .document(desarrolladora.id!!)
+            .set(desarrolladoraMap)
+            .addOnSuccessListener {
+                generadorSnackbar.mostrar("Desarrolladora guardada con éxito")
+                finish()
+            }.addOnFailureListener {
+                generadorSnackbar.mostrar("Error al guardar la desarrolladora")
+            }
     }
 }
 

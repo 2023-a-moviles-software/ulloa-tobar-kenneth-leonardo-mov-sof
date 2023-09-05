@@ -19,7 +19,7 @@ class DesarrolladoraSQLHelper(
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {}
-
+    /*
     fun crearDesarrolladora(
         nombre: String,
         ubicacion: String,
@@ -185,4 +185,6 @@ class DesarrolladoraSQLHelper(
             id=_id
         )
     }
+
+    */
 }

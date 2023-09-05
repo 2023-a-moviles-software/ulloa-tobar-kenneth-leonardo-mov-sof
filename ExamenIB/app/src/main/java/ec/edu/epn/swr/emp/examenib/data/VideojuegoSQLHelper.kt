@@ -24,7 +24,7 @@ class VideojuegoSQLHelper(
     override fun onCreate(p0: SQLiteDatabase?) {
         p0?.execSQL(VideojuegoContract.creacion())
     }
-
+/*
     fun crearVideojuego(
         nombre: String,
         fechaLanzamiento: LocalDate,
@@ -184,6 +184,7 @@ class VideojuegoSQLHelper(
             id = _id
         )
     }
+    */
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {}
 }

@@ -5,10 +5,18 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 enum class Genero(val key: String, val title: String) {
-    ACTION("AC","Action"), FPS("FPS","FPS"), TPS("TPS","TPS"),
-    BATTLE_ROYALE("BR","Battle Royale"), MMO("MMO","MMO"), RPG("RPG","RPG"),
-    ADVENTURE("ADV","Adventure"), SHOOTER("SHO","Shooter"), HORROR("HRR","Horror"),
-    CARDS("CRD","Cards"), BOARD_GAME("BG","Board Game"), PLATFORMER("PF","Platformer");
+    ACTION("AC","Action"),
+    FPS("FPS","FPS"),
+    TPS("TPS","TPS"),
+    BATTLE_ROYALE("BR","Battle Royale"),
+    MMO("MMO","MMO"),
+    RPG("RPG","RPG"),
+    ADVENTURE("ADV","Adventure"),
+    SHOOTER("SHO","Shooter"),
+    HORROR("HRR","Horror"),
+    CARDS("CRD","Cards"),
+    BOARD_GAME("BG","Board Game"),
+    PLATFORMER("PF","Platformer");
 
     init {
         this.key
@@ -28,6 +36,17 @@ enum class Genero(val key: String, val title: String) {
             }
             return found
         }
+
+        fun toList(str: Collection<String>): MutableList<Genero> {
+            val found = ArrayList<Genero>()
+            for(i in str) {
+                val item = Genero.from(i.trim());
+                if (item != null) {
+                    found.add(item);
+                }
+            }
+            return found
+        }
     }
 
     override fun toString(): String {
@@ -37,8 +56,12 @@ enum class Genero(val key: String, val title: String) {
 }
 
 enum class Plataforma(val id: String, val title: String) {
-    XBOX("XBX","Xbox"), PS("PS","PlayStation"), PC("PC","PC"), N_SWITCH("NSW","Nintendo Switch"),
-    MOBILE("MOB","Mobile Devices"), NES("NES","NES");
+    XBOX("XBX","Xbox"),
+    PS("PS","PlayStation"),
+    PC("PC","PC"),
+    N_SWITCH("NSW","Nintendo Switch"),
+    MOBILE("MOB","Mobile Devices"),
+    NES("NES","NES");
 
     init {
         this.id
@@ -61,6 +84,16 @@ enum class Plataforma(val id: String, val title: String) {
             }
             return found
         }
+
+        fun toList(list: Collection<String>): MutableList<Plataforma> {
+            val found = ArrayList<Plataforma>()
+            for(i in list) {
+                val item: Plataforma? = Plataforma.from(i.trim());
+                if (item != null)
+                    found.add(item);
+            }
+            return found
+        }
     }
 
 
@@ -77,6 +110,13 @@ class ManejoFechas {
             return fecha.format(formato)
         }
 
+    }
+}
+
+class Variables {
+    companion object {
+        val EXITO = 0
+        val FALLO = -1
     }
 }
 

@@ -11,6 +11,10 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import ec.edu.epn.swr.emp.examenib.bussiness.BaseDatos
 import ec.edu.epn.swr.emp.examenib.bussiness.Desarrolladora
 import ec.edu.epn.swr.emp.examenib.utils.CambiadorActividad
@@ -18,21 +22,23 @@ import ec.edu.epn.swr.emp.examenib.utils.GeneradorSnackbar
 import ec.edu.epn.swr.emp.examenib.utils.Modo
 
 class VistaDesarrolladora : AppCompatActivity() {
-    lateinit var adaptador: ArrayAdapter<Desarrolladora>
-    var idSeleccionado = 0
-    var modo = Modo.CREACION
+    var desarrolladora: Desarrolladora? = null
+    var modo: Modo = Modo.CREACION
     val activityChange = CambiadorActividad(this)
     lateinit var generadorSnackbar: GeneradorSnackbar
+    var listaDesarrolladoras = ArrayList<Desarrolladora>()
+    lateinit var adaptador: DesarrolladoraAdapter;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        generadorSnackbar = GeneradorSnackbar(findViewById(R.id.lv_desarrolladoras))
+        val listView = findViewById<RecyclerView>(R.id.lv_desarrolladoras)
+        generadorSnackbar = GeneradorSnackbar(listView)
 
         activityChange.callback = {
             intent ->
-            intent.putExtra("idDesarrolladora",idSeleccionado)
-            intent.putExtra("modo", modo)
+            intent.putExtra("desarrolladora",desarrolladora)
+            intent.putExtra("modo", modo.key)
         }
 
         val botonCrear = findViewById<Button>(R.id.btn_crear_desarrolladora)
@@ -41,7 +47,13 @@ class VistaDesarrolladora : AppCompatActivity() {
             activityChange.cambiarActividad(EdicionDesarrolladora::class.java)
         }
 
-        registerForContextMenu(cargarAdapter())
+        adaptador = DesarrolladoraAdapter(listaDesarrolladoras, this)
+        listView.layoutManager = LinearLayoutManager(this)
+        listView.adapter = adaptador
+        adaptador.notifyDataSetChanged()
+
+        //registerForContextMenu(listView)
+
     }
 
     override fun onCreateContextMenu(
@@ -52,19 +64,37 @@ class VistaDesarrolladora : AppCompatActivity() {
         super.onCreateContextMenu(menu, v, menuInfo)
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_desarrolladora, menu)
-        val info = menuInfo as AdapterView.AdapterContextMenuInfo
-        val id = info.position
-        idSeleccionado = adaptador.getItem(id)?.id!!
-        Log.i("Elemento", idSeleccionado.toString())
+        if (menuInfo != null) {
+            val info = menuInfo as AdapterView.AdapterContextMenuInfo
+            val id = info.position
+            desarrolladora = adaptador.getItem(id)
+        }
+
+        Log.i("Menu", menuInfo.toString())
+        //Log.i("Elemento", idSeleccionado.toString())
     }
 
     fun abrirDialogoEliminar() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("¿Desea eliminar la desarrolladora?")
         builder.setPositiveButton("Si") { dialog, which ->
-            if(BaseDatos.desarrolladoras!!.eliminarDesarrolladora(idSeleccionado)){
-                cargarAdapter()
+            desarrolladora?.let {
+                if(it.id != null) {
+                    val db = Firebase.firestore
+                    db.collection("desarrolladoras")
+                        .document(it.id)
+                        .delete()
+                        .addOnSuccessListener {
+                            generadorSnackbar.mostrar("Desarrolladora borrada")
+                            cargarAdapter()
+                        }
+                        .addOnFailureListener {
+                            generadorSnackbar.mostrar("Ocurrió un problema al eliminar la desarrolladora")
+                        }
+                }
+
             }
+
         }
         builder.setNegativeButton("No", null)
 
@@ -107,15 +137,15 @@ class VistaDesarrolladora : AppCompatActivity() {
         cargarAdapter()
     }
 
-    private fun cargarAdapter(): ListView {
-        val listView = findViewById<ListView>(R.id.lv_desarrolladoras)
-        adaptador = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            BaseDatos.desarrolladoras?.consultarTodo()!!
-        )
-        listView.adapter = adaptador
-        adaptador.notifyDataSetChanged()
-        return listView
+    private fun cargarAdapter() {
+
+        BaseDatos.getDesarrolladoras {
+            desarrolladoras ->
+            listaDesarrolladoras.clear()
+            listaDesarrolladoras.addAll(desarrolladoras)
+            adaptador.notifyDataSetChanged()
+        }
+        //adaptador.notifyDataSetChanged()
     }
+
 }
