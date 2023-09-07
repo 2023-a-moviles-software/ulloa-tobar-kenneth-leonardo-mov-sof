@@ -32,22 +32,6 @@ class BaseDatos {
                 }
         }
 
-        fun buscarDesarrolladora(id: String, ): Desarrolladora? {
-            return desarrolladoras.find { it.id == id }
-        }
-
-        fun eliminarDesarrolladora(desarrolladora: Desarrolladora?): Boolean {
-            return desarrolladoras.removeIf { it == desarrolladora }
-        }
-
-        fun crearDesarrolladora(nombre: String, ubicacion: String, paginaWeb: String, anio: Int, esIndependiente: Boolean) {
-
-        }
-
-        fun actualizarDesarrolladora(nombre: String, ubicacion: String, paginaWeb: String, anio: Int, esIndependiente: Boolean, id: Int) {
-
-        }
-
         fun parsearDesarrolladora(documento: QueryDocumentSnapshot): Desarrolladora {
 
             val desarrolladora = Desarrolladora(
@@ -140,7 +124,7 @@ class BaseDatos {
 
         fun eliminarVideojuego(id: String, _callback: (it: Int) -> Unit) {
             val db = Firebase.firestore
-            db.collection("videojuego")
+            db.collection("videojuegos")
                 .document(id)
                 .delete()
                 .addOnSuccessListener {
