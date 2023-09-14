@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_menu_principal"
+    app:startDestination="@id/menu_inicio">
+    <fragment
+        android:id="@+id/menu_inicio"
+        android:name="ec.edu.epn.swr.emp.chaucheritamovil.InicioFragment"
+        android:label="fragment_inicio"
+        tools:layout="@layout/fragment_inicio"
+        >
+
+        <action
+            android:id="@+id/action_menu_item_inicio_to_menu_item_cuentas"
+            app:destination="@id/menu_cuentas" />
+        <action
+            android:id="@+id/action_menu_inicio_to_movimientoFragment"
+            app:destination="@id/menu_mov" />
+    </fragment>
+    <fragment
+        android:id="@+id/menu_cuentas"
+        android:name="ec.edu.epn.swr.emp.chaucheritamovil.CuentasFragment"
+        android:label="fragment_cuentas"
+        tools:layout="@layout/fragment_cuentas">
+        <action
+            android:id="@+id/action_menu_cuentas_to_nuevaCuentaFragment"
+            app:destination="@id/nuevaCuentaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/menu_mov"
+        android:name="ec.edu.epn.swr.emp.chaucheritamovil.MovimientoFragment"
+        android:label="fragment_movimiento"
+        tools:layout="@layout/fragment_movimiento" >
+        <action
+            android:id="@+id/action_menu_mov_to_nuevoMovimientoFragment"
+            app:destination="@id/nuevoMovimientoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nuevaCuentaFragment"
+        android:name="ec.edu.epn.swr.emp.chaucheritamovil.NuevaCuentaFragment"
+        android:label="fragment_nueva_cuenta"
+        tools:layout="@layout/fragment_nueva_cuenta" />
+    <fragment
+        android:id="@+id/nuevoMovimientoFragment"
+        android:name="ec.edu.epn.swr.emp.chaucheritamovil.NuevoMovimientoFragment"
+        android:label="fragment_nuevo_movimiento"
+        tools:layout="@layout/fragment_nuevo_movimiento" />
+</navigation>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Inicio"
+        android:id="@+id/menu_inicio"
+        android:icon="@drawable/house_solid"
+        />
+    <item android:title="Cuentas"
+        android:id="@+id/menu_cuentas"
+        android:icon="@drawable/money_bills_solid"
+        />
+    <item android:title="Movimientos"
+        android:id="@+id/menu_mov"
+        android:icon="@drawable/money_bill_transfer_solid"
+        />
+</menu>
